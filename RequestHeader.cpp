@@ -1,16 +1,20 @@
 #include <iostream>
 #include "RequestHeader.h"
-
 int main(){
     
     string str = "GET / HTTP/1.1\r\nHost: www.baidu.com\r\n";
     RequestHeader head(str);
-    map<string, string>::iterator iter = head.getHeader().begin();
-    while(iter != head.getHeader().end()) {
-        cout << iter->first << ": " << iter->second << endl;
-        iter++;
-    }
+    //map<string, string>::iterator iter = head.getHeader().begin();
+    // while(iter != head.getHeader().end()) {
+    //     cout << iter->first << ": " << iter->second << endl;
+    //     iter++;
+    // }
+    // string str = "123sdfsdfsdf123";
+    // int i = atoi(str.c_str());
+    // cout << i << endl;
 }
+
+
 
 map<string, string>& RequestHeader::getHeader(){
     return header;
