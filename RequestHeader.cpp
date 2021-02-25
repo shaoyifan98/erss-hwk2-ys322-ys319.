@@ -50,10 +50,25 @@ void RequestHeader::parseStartLine(string content){
     }else{
         header["PORT"] = "80";
     }
-    
 }
 
 void RequestHeader::parseHostLine(string content){
     size_t startIndex = content.find(" ") + 1;
     header["HOST"] = content.substr(startIndex);
+}
+
+void RequestHeader::parseContentLength(string content) {
+    size_t startIndex = content.find("Content-Length:");
+    // have Content-Length
+    if (startIndex != std::string::npos) {
+        chunked = false;
+        startIndex += 16;
+        string contentLength = content.substr(startIndex);
+        size_t endIndex = contentLength.find_first_of("\r\n");
+        contentLength = contentLength.substr(0, endIndex);
+        contentLen = atoi(contentLength.c_str());
+    } else { // have Transfer-Encoding
+        chunked = true;
+        contentLen = 0;
+    }
 }
