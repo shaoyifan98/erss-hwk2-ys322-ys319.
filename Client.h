@@ -98,7 +98,7 @@ class Client {
       if (resp.status == 204 || resp.status == 304 || ((resp.status >= 100) && (resp.status < 200)) ) {
         return responseHead;
       }
-      
+
       // for any other methods, need response body or chunked encoding
       // Transfer-encoding chunked
       if (resp.chunked) {
@@ -134,8 +134,8 @@ class Client {
             responseBody += *iter;
           }
         }
-        return (responseHead + responseBody);
       }
+      return (responseHead + responseBody);
     }
 
 };
