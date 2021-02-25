@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <cstdio>
+#include <iostream>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
@@ -7,6 +8,11 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <string>
+#include <vector>
+#include "myException.h"
+#include "RequestHeader.h"
+
+#define CHUNK_SIZE 1024
 
 class Server {
   private:
@@ -24,7 +30,7 @@ class Server {
       hints.ai_protocol = 0; /* Any protocol */
       hints.ai_socktype = SOCK_STREAM; /* TCP protocol */
       // convert hints into addrSrv
-      if(getaddrinfo(NULL, "80", &hints, &addrSrv)) {
+      if(getaddrinfo(NULL, "12345", &hints, &addrSrv)) {
         perror("convert failed"); 
       }
       // create socket file descriptor
@@ -52,7 +58,7 @@ class Server {
       freeaddrinfo(addrSrv);
     }
 
-    // server accept the client
+    // server accepts the client
     int serverAccept() {
       struct sockaddr_storage addrClient;
       socklen_t addrLen = sizeof(addrClient);
@@ -65,20 +71,90 @@ class Server {
       return clientfd;
     }
 
+    // server sends a msg
     void serverSend(int otherSockfd, std::string msg) {
-      send(otherSockfd, msg.c_str(), msg.size(), 0);
+      std::cout << "server sending" << std::endl;
+      int msgSize = msg.size();
+      char * ptr = (char*)msg.c_str();
+      while (msgSize > 0) {
+        int i = send(otherSockfd, ptr, msgSize, 0);
+        if (i < 1) {
+          throw myException("Server Sending failed");
+        }
+        ptr += i;
+        msgSize -= i;
+      }
     }
 
-    void serverRecv(int otherSockfd) {
-      char buf[1024];
-      if ( recv(otherSockfd, buf, 1024, 0 ) == -1 ) {
-        perror( "recv" );
-        exit( 1 );
+    // server receives http request head
+    std::string serverRecvReq(int otherSockfd) {
+      std::vector<unsigned char> buffer(CHUNK_SIZE);
+      int recv_size = 0;
+      std::string result = "";
+      //loop to receive requestHead
+      while(1) {
+        recv_size = recv(otherSockfd, &buffer[0], CHUNK_SIZE, 0);
+        if (recv_size < 0) {
+          throw myException("Server Recving failed");
+        }
+        buffer.resize(recv_size);
+        // write into string
+        for(std::vector<unsigned char>::iterator iter = buffer.begin(); iter != buffer.end(); ++iter) {
+          result += *iter;
+        }
+        if (result.find("\r\n\r\n") != std::string::npos) {
+          break;
+        }
       }
-      /* Show what the reply was*/
-      printf( "%s\n", buf );
+      int endIndex = result.find("\r\n\r\n") + 4;
+      // requestHead
+      std::string requestHead = result.substr(0, endIndex);
+      // requestBody
+      std::string requestBody = result.substr(endIndex);
+      RequestHeader req(requestHead);
+
+      // for "GET", only request head
+      if (req.getHeader()["METHOD"] == "GET") {
+        return requestHead;
+      }
+      // for any other methods, need request body
+      // have Transfer-Encoding
+      if (req.chunked) {
+        if (requestBody.find("0\r\n\r\n") == std::string::npos) {
+          // keep recieving
+          std::vector<unsigned char> buffer(CHUNK_SIZE);
+          int recv_size = 0;
+          //loop to receive requestBody
+          while(1) {
+            recv_size = recv(otherSockfd, &buffer[0], CHUNK_SIZE, 0);
+            if (recv_size < 0) {
+              throw myException("Server Recving failed");
+            }
+            buffer.resize(recv_size);
+            // write into string
+            for(std::vector<unsigned char>::iterator iter = buffer.begin(); iter != buffer.end(); ++iter) {
+              requestBody += *iter;
+            }
+            if (requestBody.find("0\r\n\r\n") != std::string::npos) {
+              break;
+            }
+          }
+        }
+      } else { // have Content-Length
+        int contentLen = req.contentLen - requestBody.size() + 2;   //  add "\r\n"
+        if (contentLen != 0) {
+          std::vector<unsigned char> buffer(contentLen);
+          int recv_size = recv(otherSockfd, &buffer[0], contentLen, 0);
+          if (recv_size < 0) {
+            throw myException("Server Recving failed");
+          }
+          for(std::vector<unsigned char>::iterator iter = buffer.begin(); iter != buffer.end(); ++iter) {
+            requestBody += *iter;
+          }
+        }
+      }
+      return (requestHead + requestBody);
     }
-  
-    
+
 
 };
