@@ -11,6 +11,9 @@ class ResponseHeader{
         int max_age;
         string last_modified;
         string expire;
+        size_t contentLen;
+        bool chunked;
+        string startLine;
 
         //the content
         string payload;

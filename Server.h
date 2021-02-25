@@ -18,7 +18,6 @@ class Server {
   private:
     int sockfd;
     struct addrinfo * addrSrv;
-    char * ip_addr;
   
   public:
     // server constructor
@@ -59,7 +58,7 @@ class Server {
     }
 
     // server accepts the client
-    int serverAccept() {
+    int serverAccept(std::string &ip) {
       struct sockaddr_storage addrClient;
       socklen_t addrLen = sizeof(addrClient);
       int clientfd = accept(sockfd, (struct sockaddr *) &addrClient, &addrLen);
@@ -67,7 +66,8 @@ class Server {
         perror("accept failed");
       }
       struct sockaddr_in * c_addr = (struct sockaddr_in *) &addrClient;
-      ip_addr = inet_ntoa(c_addr->sin_addr);
+      char * ip_addr = inet_ntoa(c_addr->sin_addr);
+      ip.assign(ip_addr);
       return clientfd;
     }
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "RequestHeader.h"
+#include "myException.h"
 // int main(){
     
 //     string str = "GET / HTTP/1.1\r\nHost: www.baidu.com\r\nCache-Control: no-cache\r\nIf-Modified-Since: Wed, 21 Oct 2018 07:28:00 GMT\r\nIf-None-Match: \"33a64df\"";
@@ -18,8 +19,6 @@
 //         cout << "no cache" << endl;
 //     }
 // }
-
-
 
 map<string, string>& RequestHeader::getHeader(){
     return header;
@@ -66,15 +65,16 @@ void RequestHeader::parseContentLength(string content) {
     size_t startIndex = content.find("Content-Length:");
     // have Content-Length
     if (startIndex != std::string::npos) {
-        chunked = false;
         startIndex += 16;
         string contentLength = content.substr(startIndex);
         size_t endIndex = contentLength.find_first_of("\r\n");
         contentLength = contentLength.substr(0, endIndex);
         contentLen = atoi(contentLength.c_str());
-    } else { // have Transfer-Encoding
+        chunked = false;
+    } else if (content.find("Transfer-Encoding: chunked") != std::string::npos) {
         chunked = true;
-        contentLen = 0;
+    } else {
+        throw myException("Bad Request!");
     }
 }
 
