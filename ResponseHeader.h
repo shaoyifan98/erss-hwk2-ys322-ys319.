@@ -8,16 +8,21 @@ class ResponseHeader{
         size_t status;
         string etag;
         string date;
-        size_t max_age;
+        int max_age;
         string last_modified;
         string expire;
 
-        ResponseHeader(string str):rawData(str){
+        //the content
+        string payload;
+        string uri;
+
+        ResponseHeader(string str):rawData(str), status(0), etag(""), date(""), max_age(-1), last_modified(""), expire(""), payload(""), uri(""){
           parse(rawData);
         }
 
         void parse(string content);
         
 };
+
 
 

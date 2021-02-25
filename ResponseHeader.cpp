@@ -1,15 +1,16 @@
 #include <iostream>
 #include "ResponseHeader.h"
 
-int main(){
-    string str = "http//1.1 200\r\nLast-Modified: Wed, 21 Oct 2015 07:28:00 GMT\r\nDate: Wed, 21 Oct 2018 07:28:00 GMT\r\nCache-Control: max-age=31536000\r\nExpires: Wed, 21 Oct 2018 07:28:00 GMT\r\nETag: \"33a64df551425fcc55e4d42a148795d9f25f89d4\"\r\n";
-    ResponseHeader head(str);
-    cout << head.date << endl;
-    cout << head.max_age << endl;
-    cout << head.status << endl;
-    cout << head.last_modified << endl;
+// int main(){
+//     string str = "http//1.1 200\r\nLast-Modified: Wed, 21 Oct 2015 07:28:00 GMT\r\nDate: Wed, 21 Oct 2018 07:28:00 GMT\r\nCache-Control: max-age=31536000\r\nExpires: Wed, 21 Oct 2018 07:28:00 GMT\r\nETag: \"33a64df551425fcc55e4d42a148795d9f25f89d4\"\r\n\r\ncontent is here";
+//     ResponseHeader head(str);
+//     cout << head.date << endl;
+//     cout << head.max_age << endl;
+//     cout << head.status << endl;
+//     cout << head.last_modified << endl;
+//     cout << head.payload << endl;
 
-}
+// }
 
  void ResponseHeader::parse(string content){
     //get response status
@@ -59,6 +60,11 @@ int main(){
         temp = temp.substr(start);
         size_t end = temp.find("\"");
         etag = temp.substr(0, end);
+    }
+
+    if((index = content.find("\r\n\r\n")) != string::npos){
+        index = index + 4;
+        payload = content.substr(index);
     }
 
  }
