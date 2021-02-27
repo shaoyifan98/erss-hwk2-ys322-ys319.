@@ -34,6 +34,12 @@ struct tm Time::getCurrentTime(){
     return *gmtime(&timep);
 }
 
+//get the current time in GMT in string literal
+string Time::getCurrentTimeStr() {
+    struct tm time = getCurrentTime();
+    return string(asctime(&time));
+}
+
 //return tm1 - tm2
 double Time::computeTimeDiff(tm& tm1, tm& tm2){
     time_t time1,time2;
@@ -58,10 +64,10 @@ double Time::computeTimeDiff(string str){
 
 
 
-int main(){
-    Time mytime;
-    string str1 = "Wed, 22 Oct 2015 08:28:00";
-    string str2 = "Wed, 22 Oct 2015 07:28:00";
-    cout << mytime.computeTimeDiff(str1, str2)<< endl;
-
-}
+// int main(){
+//     Time mytime;
+//     string str1 = "Wed, 22 Oct 2015 08:28:00";
+//     string str2 = "Wed, 22 Oct 2015 07:28:00";
+//     cout << mytime.computeTimeDiff(str1, str2)<< endl;
+//     cout << "Time Now: " << mytime.getCurrentTimeStr() << endl;
+// }

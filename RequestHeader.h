@@ -1,3 +1,5 @@
+#ifndef _REQUESTHEADER_H
+#define _REQUESTHEADER_H
 #include <string>
 #include <map>
 using namespace std;
@@ -32,3 +34,4 @@ class RequestHeader{
         void parseOtherInfo(string content);
         map<string, string>& getHeader();
 };
+#endif

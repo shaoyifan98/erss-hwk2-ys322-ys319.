@@ -73,8 +73,6 @@ void RequestHeader::parseContentLength(string content) {
         chunked = false;
     } else if (content.find("Transfer-Encoding: chunked") != std::string::npos) {
         chunked = true;
-    } else {
-        throw myException("Bad Request!");
     }
 }
 

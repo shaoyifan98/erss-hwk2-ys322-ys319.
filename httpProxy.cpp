@@ -1,49 +1,67 @@
 #include "httpProxy.h"
-#include "RequestHeader.h"
-#include "LogInfo.h"
-#include "ClientInfo.h"
-#include "Client.h"
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
 #include <string>
 #include <thread>
+#include "Time.h"
+#include "Client.h"
+#include "LogInfo.h"
+#include "ClientInfo.h"
 
-static int id = 0;
+void handleReq(ClientInfo & clientinfo, Server & server);
+void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server);
+void handlePOST(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server);
+void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server);
 
 void httpProxy::init() {
+  int id = 0;
   while(true) {
     std::string ip = "";
     int clientfd = server.serverAccept(ip);
-    ClientInfo * client = new ClientInfo(clientfd, ip);
-    std::thread t(handleReq, client); 
+    ClientInfo client(clientfd, ip, id++);
+    std::thread t(handleReq, std::ref(client), std::ref(server));
+    t.detach();
   }
 }
 
-void httpProxy::handleReq(ClientInfo * client) {
-  ClientInfo * clientinfo = (ClientInfo *)client;
-  LogInfo log(std::to_string(id));
-  std::string request = server.serverRecvReq(clientinfo->getClientfd());
+void handleReq(ClientInfo & clientinfo, Server & server) {
+  LogInfo log(std::to_string(clientinfo.getClientID()));
+  std::string request = server.serverRecvReq(clientinfo.getClientfd());
   RequestHeader req(request);
-  std::string logmsg = "\"" + req.startLine + "\"" + " from " + clientinfo->getClientIP() + "\n";
+  
+  // write loginfo: ID: "REQUEST" from IPFROM @ TIME
+  std::string logmsg = "\"" + req.startLine + "\"" + " from " + clientinfo.getClientIP();
+  Time myTime;
+  logmsg += " @ " + myTime.getCurrentTimeStr();
   log.writeInfo(logmsg);
+  
   //req.startLine
   if(req.getHeader()["METHOD"] == "GET") {
-    handleGET(clientinfo->getClientfd(), request, req, log);
+    handleGET(clientinfo.getClientfd(), request, req, log, server);
   } else if (req.getHeader()["METHOD"] == "POST") {
-    handlePOST(clientinfo->getClientfd(), request, req, log);
+    handlePOST(clientinfo.getClientfd(), request, req, log, server);
   } else if (req.getHeader()["METHOD"] == "CONNECT") {
-    handleCONNECT(clientinfo->getClientfd(), request, req, log);
+    handleCONNECT(clientinfo.getClientfd(), request, req, log, server);
   } else {
-    // bad request
+    // bad request, close socket
+    close(clientinfo.getClientfd());
   }
 }
 
-void httpProxy::handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &log) {
+void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server &server) {
+  // Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
+  
+  // // requesting from the remote server
+  // proxyAsClient.clientSend(request);
+  // std::string response = proxyAsClient.clientRecvResp();
+  // ResponseHeader resp(response);
 
+  // // sending back to client
+  // server.serverSend(clientfd, response);
 }
 
-void httpProxy::handlePOST(int clientfd, std::string request, RequestHeader &req, LogInfo &log) {
+void handlePOST(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server) {
   Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
   // writelog : ID: Requesting "REQUEST" from SERVER
   std::string info = "Requesting \"" + req.startLine + "\" from " + req.getHeader()["HOST"] + "\n";
@@ -64,6 +82,42 @@ void httpProxy::handlePOST(int clientfd, std::string request, RequestHeader &req
   log.writeInfo(info);
 }
 
-void httpProxy::handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInfo &log) {
+void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server) {
+  Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
+  // send connection response to client
+  Time myTime;
+  std::string connectResp = "HTTP/1.1 200 OK\r\nDate: " + myTime.getCurrentTimeStr() + " GMT\r\nContent-Length: 28\r\n\r\n";
+  connectResp += "Https Connection Established\r\n";
+  server.serverSend(clientfd, connectResp);
+  // writelog : ID: Responding "RESPONSE"
+  std::string info = "Responding \"HTTP/1.1 200 OK\"\n";
 
+  // set fds
+  int proxyfd = proxyAsClient.getSockfd();
+  fd_set readfds;
+  FD_ZERO(&readfds);
+  FD_SET(clientfd, &readfds);
+  FD_SET(proxyfd, &readfds);
+  int fdnum = max(clientfd, proxyfd) + 1;
+  struct timeval waitTime;
+  waitTime.tv_sec = 60;
+  waitTime.tv_usec = 0; 
+  while (true){
+    int res = select(fdnum, &readfds, NULL, NULL, &waitTime);
+    if (res <= 0) {
+        break;
+    }
+    if (FD_ISSET(clientfd, &readfds)){
+      // receive request from client
+      std::string clientReq = server.serverRecvReq(clientfd);
+      // send to server
+      proxyAsClient.clientSend(clientReq);
+    }
+    if (FD_ISSET(proxyfd, &readfds)){
+      // receive response from client
+      std::string serverResp = proxyAsClient.clientRecvResp();
+      // send to client
+      server.serverSend(clientfd, serverResp);
+    }
+  }
 }

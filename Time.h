@@ -14,6 +14,7 @@ class Time{
         void setup();
         struct tm parseTime(string str);
         struct tm getCurrentTime();
+        string getCurrentTimeStr();
         //return the time difference, str1 - str2
         //must in http time style:"Wed, 22 Oct 2015 08:28:00"
         double computeTimeDiff(string str1, string str2);

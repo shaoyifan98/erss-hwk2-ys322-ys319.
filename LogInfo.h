@@ -2,7 +2,7 @@
 #include <mutex>
 #include <fstream>
 
-std::mutex writeLock;
+
 class LogInfo {
   private:
     std::string id;
@@ -11,6 +11,7 @@ class LogInfo {
 
     // write normal log info
     void writeInfo(std::string logInfo) {
+      std::mutex writeLock;
       writeLock.lock();
       std::ofstream logfile("/var/log/erss/proxy.log");
       if (logfile.is_open()){
@@ -21,6 +22,7 @@ class LogInfo {
 
     // write error message like NOTE, WARNING, ERROR
     void writeError(std::string errMsg) {
+      std::mutex writeLock;
       writeLock.lock();
       std::ofstream logfile("/var/log/erss/proxy.log");
       if (logfile.is_open()){

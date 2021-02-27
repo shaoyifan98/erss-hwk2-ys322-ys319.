@@ -1,3 +1,5 @@
+testProxy: testProxy.cpp	httpProxy.cpp
+	g++ testProxy.cpp httpProxy.cpp Time.cpp RequestHeader.cpp ResponseHeader.cpp -o testProxy -std=gnu++11 -Wall -Werror -pthread
 testClient: testClient.cpp ResponseHeader.cpp
 	g++ testClient.cpp ResponseHeader.cpp -o testClient
 testServer: testServer.cpp RequestHeader.cpp

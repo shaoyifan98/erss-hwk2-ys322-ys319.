@@ -1,3 +1,6 @@
+#ifndef _MYEXCEPTION_H
+#define _MYEXCEPTION_H
+
 #include <exception>
 #include <string>
 
@@ -10,3 +13,5 @@ class myException: public std::exception {
         return errorMsg.c_str();
     }
 };
+
+#endif
