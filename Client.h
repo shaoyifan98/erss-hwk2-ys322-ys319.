@@ -95,7 +95,7 @@ class Client {
       ResponseHeader resp(responseHead);
 
       // for status code 1xx, 204 or 304, only response head
-      if (resp.status == 204 || resp.status == 304 || ((resp.status >= 100) && (resp.status < 200)) ) {
+      if (resp.status == 204 || resp.status == 304 || ((resp.status >= 100) && (resp.status < 200))) {
         return responseHead;
       }
 

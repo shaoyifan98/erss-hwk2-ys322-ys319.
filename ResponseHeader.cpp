@@ -81,7 +81,7 @@ void ResponseHeader::parse(string content){
         throw myException("Bad Request!");
     }
 
-    startLine = content.substr(0, content.find_first_of("\r\n") + 2);
+    startLine = content.substr(0, content.find_first_of("\r\n"));
 
 }
 
