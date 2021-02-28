@@ -11,7 +11,7 @@
 #include "myException.h"
 #include "ResponseHeader.h"
 
-#define CHUNK_SIZE 4096
+#define CHUNK_SIZE 8192
 
 class Client {
   private:
