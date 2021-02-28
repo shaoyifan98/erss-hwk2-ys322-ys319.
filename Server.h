@@ -12,7 +12,7 @@
 #include "myException.h"
 #include "RequestHeader.h"
 
-#define CHUNK_SIZE 1024
+#define CHUNK_SIZE 4096
 
 class Server {
   private:
@@ -114,7 +114,7 @@ class Server {
       RequestHeader req(requestHead);
 
       // for "GET", only request head
-      if (req.getHeader()["METHOD"] == "GET" || req.getHeader()["METHOD"] == "CONNECT") {
+      if (req.getHeader()["METHOD"] == "GET" || req.getHeader()["METHOD"] == "POST") {
         return requestHead;
       }
       // for any other methods, need request body

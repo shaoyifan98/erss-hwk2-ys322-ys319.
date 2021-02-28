@@ -30,7 +30,6 @@ void handleReq(ClientInfo & clientinfo, Server & server) {
   std::string request = server.serverRecvReq(clientinfo.getClientfd());
   std::cout << request << std::endl;
   RequestHeader req(request);
-  
   /*
   // write loginfo: ID: "REQUEST" from IPFROM @ TIME
   std::string logmsg = "\"" + req.startLine + "\"" + " from " + clientinfo.getClientIP();
@@ -90,6 +89,7 @@ void handlePOST(int clientfd, std::string request, RequestHeader &req, LogInfo &
 }
 
 void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server) {
+  std::cout << "IN CONNECT" << std::endl;
   Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
   // send connection response to client
   Time myTime;
@@ -114,18 +114,42 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
     if (res <= 0) {
         break;
     }
+    std::cout << "in selecting" << std::endl;
     if (FD_ISSET(clientfd, &readfds)){
       // receive request from client
-      std::string clientReq = server.serverRecvReq(clientfd);
+      std::cout << "122" << std::endl;
+      std::vector<unsigned char> buffer(65536);
+      int recv_size = recv(clientfd, &buffer.data()[0], 65536, 0);
+      if (recv_size <= 0) {
+        return;
+      }
+      buffer.resize(recv_size);
       // send to server
+      std::string clientReq = "";
+      for(std::vector<unsigned char>::iterator iter = buffer.begin(); iter != buffer.end(); ++iter) {
+        clientReq += *iter;
+      }
       proxyAsClient.clientSend(clientReq);
-      std::cout << "122: " << clientReq << std::endl;
     }
     if (FD_ISSET(proxyfd, &readfds)){
-      // receive response from client
-      std::string serverResp = proxyAsClient.clientRecvResp();
+      // receive response from server
+      std::cout << "123" << std::endl;
+      std::vector<unsigned char> buffer(65536);
+      int recv_size = recv(proxyfd, &buffer.data()[0], 65536, 0);
+      if (recv_size <= 0) {
+        return;
+      }
+      buffer.resize(recv_size);
+      // send to server
+      std::string serverResp = "";
+      for(std::vector<unsigned char>::iterator iter = buffer.begin(); iter != buffer.end(); ++iter) {
+        serverResp += *iter;
+      }
       // send to client
       server.serverSend(clientfd, serverResp);
     }
+    FD_ZERO(&readfds);
+    FD_SET(clientfd, &readfds);
+    FD_SET(proxyfd, &readfds);
   }
 }

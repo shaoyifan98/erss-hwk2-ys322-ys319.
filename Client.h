@@ -11,7 +11,7 @@
 #include "myException.h"
 #include "ResponseHeader.h"
 
-#define CHUNK_SIZE 1024
+#define CHUNK_SIZE 4096
 
 class Client {
   private:
@@ -30,9 +30,6 @@ class Client {
       hints.ai_flags = AI_PASSIVE; /* For wildcard IP address */
       hints.ai_protocol = 0; /* Any protocol */
       hints.ai_socktype = SOCK_STREAM; /* TCP protocol */
-      std::cout << "test" << std::endl;
-      std::cout << hostName << std::endl;
-      std::cout << portNum << std::endl;
       // convert hints into addrSrv
       if(getaddrinfo(hostName.c_str(), portNum.c_str(), &hints, &addrSrv)) {
         perror("convert failed"); 
@@ -113,7 +110,7 @@ class Client {
           while(1) {
             recv_size = recv(sockfd, &buffer[0], CHUNK_SIZE, 0);
             if (recv_size < 0) {
-              throw myException("Server Recving failed");
+              throw myException("Client Recving failed");
             }
             buffer.resize(recv_size);
             // write into string

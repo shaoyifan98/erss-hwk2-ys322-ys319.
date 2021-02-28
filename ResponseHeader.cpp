@@ -77,6 +77,7 @@ void ResponseHeader::parse(string content){
         chunked = false;
     } else if ((startIndex = content.find("Transfer-Encoding:")) != std::string::npos) {
         chunked = true;
+        contentLen = 0;
     } else {
         throw myException("Bad Request!");
     }
