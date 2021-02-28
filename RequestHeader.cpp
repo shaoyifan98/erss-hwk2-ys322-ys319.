@@ -58,7 +58,12 @@ void RequestHeader::parseStartLine(string content){
 
 void RequestHeader::parseHostLine(string content){
     size_t startIndex = content.find(" ") + 1;
-    header["HOST"] = content.substr(startIndex);
+    string host = content.substr(startIndex);
+    size_t endIndex = host.find(":");
+    if(endIndex == string::npos){
+      endIndex = content.length();
+    }
+    header["HOST"] = content.substr(startIndex, endIndex);
 }
 
 void RequestHeader::parseContentLength(string content) {

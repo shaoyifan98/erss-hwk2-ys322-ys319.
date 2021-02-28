@@ -30,6 +30,9 @@ class Client {
       hints.ai_flags = AI_PASSIVE; /* For wildcard IP address */
       hints.ai_protocol = 0; /* Any protocol */
       hints.ai_socktype = SOCK_STREAM; /* TCP protocol */
+      std::cout << "test" << std::endl;
+      std::cout << hostName << std::endl;
+      std::cout << portNum << std::endl;
       // convert hints into addrSrv
       if(getaddrinfo(hostName.c_str(), portNum.c_str(), &hints, &addrSrv)) {
         perror("convert failed"); 

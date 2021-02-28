@@ -114,7 +114,7 @@ class Server {
       RequestHeader req(requestHead);
 
       // for "GET", only request head
-      if (req.getHeader()["METHOD"] == "GET") {
+      if (req.getHeader()["METHOD"] == "GET" || req.getHeader()["METHOD"] == "CONNECT") {
         return requestHead;
       }
       // for any other methods, need request body
