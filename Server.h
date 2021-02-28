@@ -12,7 +12,7 @@
 #include "myException.h"
 #include "RequestHeader.h"
 
-#define CHUNK_SIZE 1024
+#define CHUNK_SIZE 8192
 
 class Server {
   private:
