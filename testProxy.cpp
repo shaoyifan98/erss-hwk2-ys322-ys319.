@@ -7,5 +7,4 @@
 int main() {
   httpProxy proxy = httpProxy();
   proxy.init();
-  return EXIT_SUCCESS;
 }

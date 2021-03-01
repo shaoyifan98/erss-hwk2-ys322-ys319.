@@ -11,7 +11,7 @@
 #include "myException.h"
 #include "ResponseHeader.h"
 
-#define CHUNK_SIZE 8192
+#define CHUNK_SIZE 65536
 
 class Client {
   private:
@@ -51,14 +51,13 @@ class Client {
     void clientSend(std::string msg) {
       std::cout << "client sending" << std::endl;
       int msgSize = msg.size();
-      char * ptr = (char*)msg.c_str();
-      while (msgSize > 0) {
-        int i = send(sockfd, ptr, msgSize, 0);
-        if (i < 1) {
+      int totalSize = 0;
+      while (totalSize < msgSize) {
+        int send_size = send(sockfd, msg.c_str(), msgSize, 0);
+        if (send_size < 0) {
           throw myException("Client Sending failed");
         }
-        ptr += i;
-        msgSize -= i;
+        totalSize += send_size;
       }
     }
 
@@ -69,20 +68,19 @@ class Client {
 
     // client receives http response
     std::string clientRecvResp() {
-      std::vector<unsigned char> buffer(CHUNK_SIZE);
+      std::cout << "recv response..." << std::endl;
+      char buffer[CHUNK_SIZE];
       int recv_size = 0;
       std::string result = "";
       //loop to receive responseHead
       while(1) {
-        recv_size = recv(sockfd, &buffer[0], CHUNK_SIZE, 0);
+        memset(buffer, 0, sizeof(char));
+        recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
         if (recv_size < 0) {
           throw myException("Client Recving failed");
         }
-        buffer.resize(recv_size);
-        // write into string
-        for(std::vector<unsigned char>::iterator iter = buffer.begin(); iter != buffer.end(); ++iter) {
-          result += *iter;
-        }
+        std::string temp(buffer, recv_size);
+        result += temp;
         if (result.find("\r\n\r\n") != std::string::npos) {
           break;
         }
@@ -90,48 +88,55 @@ class Client {
       int endIndex = result.find("\r\n\r\n") + 4;
       // responseHead
       std::string responseHead = result.substr(0, endIndex);
-      // responseBody
-      std::string responseBody = result.substr(endIndex);
       ResponseHeader resp(responseHead);
 
-      // for status code 1xx, 204 or 304, only response head
+      //for status code 1xx, 204 or 304, only response head
       if (resp.status == 204 || resp.status == 304 || ((resp.status >= 100) && (resp.status < 200))) {
         return responseHead;
       }
 
+      // responseBody
+      std::string responseBody = result.substr(endIndex);
+
       // for any other methods, need response body or chunked encoding
       // Transfer-encoding chunked
       if (resp.chunked) {
-        if (responseBody.find("0\r\n\r\n") == std::string::npos) {
+        if (responseBody.find("\r\n\r\n") == std::string::npos) {
           // keep recieving
-          std::vector<unsigned char> buffer(CHUNK_SIZE);
+          char buffer[CHUNK_SIZE];
           int recv_size = 0;
           //loop to receive requestBody
           while(1) {
-            recv_size = recv(sockfd, &buffer[0], CHUNK_SIZE, 0);
-            if (recv_size < 0) {
-              throw myException("Client Recving failed");
+            memset(buffer, 0, sizeof(char));
+            recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
+            if (recv_size <= 0) {
+              //throw myException("Client Recving failed");
+              break;
             }
-            buffer.resize(recv_size);
-            // write into string
-            for(std::vector<unsigned char>::iterator iter = buffer.begin(); iter != buffer.end(); ++iter) {
-              responseBody += *iter;
-            }
-            if (responseBody.find("0\r\n\r\n") != std::string::npos) {
+            std::string temp(buffer, recv_size);
+            responseBody += temp;
+            if (responseBody.find("\r\n\r\n") != std::string::npos) {
               break;
             }
           }
         }
       } else { // have Content-Length
-        int contentLen = resp.contentLen - responseBody.size() + 2;   //  add "\r\n"
+        int contentLen = resp.contentLen - responseBody.size();   
+        int totalLen = 0;
         if (contentLen != 0) {
-          std::vector<unsigned char> buffer(contentLen);
-          int recv_size = recv(sockfd, &buffer[0], contentLen, 0);
-          if (recv_size < 0) {
-            throw myException("Client Recving failed");
-          }
-          for(std::vector<unsigned char>::iterator iter = buffer.begin(); iter != buffer.end(); ++iter) {
-            responseBody += *iter;
+          while (totalLen < contentLen) {
+            char buffer[contentLen];
+            memset(buffer, 0, sizeof(char));
+            int recv_size = recv(sockfd, buffer, contentLen, 0);
+            // if (recv_size < 0) {
+            //   throw myException("Client Recving failed");
+            // }
+            if (recv_size <= 0) {
+              break;
+            }
+            std::string temp(buffer, recv_size);
+            responseBody += temp;
+            totalLen += recv_size;
           }
         }
       }

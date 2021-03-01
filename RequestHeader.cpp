@@ -4,20 +4,22 @@
 // int main(){
     
 //     string str = "GET / HTTP/1.1\r\nHost: www.baidu.com\r\nCache-Control: no-cache\r\nIf-Modified-Since: Wed, 21 Oct 2018 07:28:00 GMT\r\nIf-None-Match: \"33a64df\"";
+//     str += "\r\nContent-Length: 11\r\n\r\n";
 //     RequestHeader head(str);
-//     //map<string, string>::iterator iter = head.getHeader().begin();
-//     // while(iter != head.getHeader().end()) {
-//     //     cout << iter->first << ": " << iter->second << endl;
-//     //     iter++;
-//     // }
-//     // string str = "123sdfsdfsdf123";
-//     // int i = atoi(str.c_str());
-//     // cout << i << endl;
+//     map<string, string>::iterator iter = head.getHeader().begin();
+//     while(iter != head.getHeader().end()) {
+//         cout << iter->first << ": " << iter->second << endl;
+//         iter++;
+//     }
+//     string str = "123sdfsdfsdf123";
+//     int i = atoi(str.c_str());
+//     cout << i << endl;
 //     cout << head.if_modified_since << endl;
 //     cout << head.if_none_match << endl;
 //     if(head.no_cache){
 //         cout << "no cache" << endl;
 //     }
+//     cout << "content length: " << to_string(head.contentLen) << endl;
 // }
 
 map<string, string>& RequestHeader::getHeader(){
