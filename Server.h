@@ -74,14 +74,9 @@ class Server {
     // server sends a msg
     void serverSend(int otherSockfd, std::string msg) {
       std::cout << "server sending" << std::endl;
-      int msgSize = msg.size();
-      int totalSize = 0;
-      while (totalSize < msgSize) {
-        int send_size = send(otherSockfd, msg.c_str(), msgSize, 0);
-        if (send_size < 0) {
-          throw myException("Server Sending failed");
-        }
-        totalSize += send_size;
+      int send_size = send(otherSockfd, msg.c_str(), msg.length(), 0);
+      if (send_size < 0) {
+        throw myException("Server Sending failed");
       }
     }
 
@@ -93,7 +88,7 @@ class Server {
       std::string result = "";
       //loop to receive requestHead
       while(1) {
-        memset(buffer, 0, sizeof(char));
+        memset(buffer, 0, sizeof(buffer));
         recv_size = recv(otherSockfd, buffer, CHUNK_SIZE, 0);
         if (recv_size < 0) {
           throw myException("Server Recving failed");
@@ -125,7 +120,7 @@ class Server {
           int recv_size = 0;
           //loop to receive requestBody
           while(1) {
-            memset(buffer, 0, sizeof(char));
+            memset(buffer, 0, sizeof(buffer));
             recv_size = recv(otherSockfd, buffer, CHUNK_SIZE, 0);
             if (recv_size < 0) {
               //throw myException("Server Recving failed");
@@ -139,12 +134,15 @@ class Server {
           }
         }
       } else { // have Content-Length
-        int contentLen = req.contentLen - requestBody.size();  
+        if (req.contentLen == 0) {
+          return requestHead;
+        }
+        int contentLen = req.contentLen - requestBody.size(); 
         int totalLen = 0;
         if (contentLen != 0) {
           while(totalLen < contentLen) {
             char buffer[contentLen];
-            memset(buffer, 0, sizeof(char));
+            memset(buffer, 0, sizeof(buffer));
             int recv_size = recv(otherSockfd, buffer, contentLen, 0);
             // if (recv_size < 0) {
             //   throw myException("Server Recving failed");

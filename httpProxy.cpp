@@ -93,8 +93,8 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
   // send connection response to client
   // Time myTime;
   // std::string connectResp = "HTTP/1.1 200 OK\r\nDate: " + myTime.getCurrentTimeStr() + " GMT\r\nContent-Length: 28\r\n\r\n";
-  // connectResp += "Https Connection Established\r\n";
-  send(clientfd, "HTTP/1.1 200 OK\r\n\r\n", 19, 0);
+  std::string connectResp = "HTTP/1.1 200 OK\r\n\r\n";
+  send(clientfd, connectResp.c_str(), connectResp.length(), 0);
   //server.serverSend(clientfd, connectResp);
   // writelog : ID: Responding "RESPONSE"
   // std::string info = "Responding \"HTTP/1.1 200 OK\"\n";
@@ -118,8 +118,8 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
       // receive request from client
       std::cout << "CONNECT - from client" << std::endl;
       char buffer[65536];
-      memset(buffer, 0, sizeof(char));
-      int recv_size = recv(clientfd, buffer, sizeof(buffer), 0);
+      memset(buffer, 0, sizeof(buffer));
+      int recv_size = recv(clientfd, buffer, 65535, 0);
       if (recv_size <= 0) {
         return;
       }
@@ -132,8 +132,8 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
       // receive response from server
       std::cout << "CONNECT - from server" << std::endl;
       char buffer[65536];
-      memset(buffer, 0, sizeof(char));
-      int recv_size = recv(proxyfd, buffer, sizeof(buffer), 0);
+      memset(buffer, 0, sizeof(buffer));
+      int recv_size = recv(proxyfd, buffer, 65535, 0);
       if (recv_size <= 0) {
         return;
       }

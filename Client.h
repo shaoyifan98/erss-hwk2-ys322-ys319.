@@ -50,14 +50,9 @@ class Client {
     // client sends a msg
     void clientSend(std::string msg) {
       std::cout << "client sending" << std::endl;
-      int msgSize = msg.size();
-      int totalSize = 0;
-      while (totalSize < msgSize) {
-        int send_size = send(sockfd, msg.c_str(), msgSize, 0);
-        if (send_size < 0) {
-          throw myException("Client Sending failed");
-        }
-        totalSize += send_size;
+      int send_size = send(sockfd, msg.c_str(), msg.length(), 0);
+      if (send_size < 0) {
+        throw myException("Client Sending failed");
       }
     }
 
@@ -74,7 +69,7 @@ class Client {
       std::string result = "";
       //loop to receive responseHead
       while(1) {
-        memset(buffer, 0, sizeof(char));
+        memset(buffer, 0, sizeof(buffer));
         recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
         if (recv_size < 0) {
           throw myException("Client Recving failed");
@@ -107,7 +102,7 @@ class Client {
           int recv_size = 0;
           //loop to receive requestBody
           while(1) {
-            memset(buffer, 0, sizeof(char));
+            memset(buffer, 0, sizeof(buffer));
             recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
             if (recv_size <= 0) {
               //throw myException("Client Recving failed");
@@ -121,12 +116,15 @@ class Client {
           }
         }
       } else { // have Content-Length
+        if (resp.contentLen == 0) {
+          return responseHead;
+        }
         int contentLen = resp.contentLen - responseBody.size();   
         int totalLen = 0;
         if (contentLen != 0) {
           while (totalLen < contentLen) {
             char buffer[contentLen];
-            memset(buffer, 0, sizeof(char));
+            memset(buffer, 0, sizeof(buffer));
             int recv_size = recv(sockfd, buffer, contentLen, 0);
             // if (recv_size < 0) {
             //   throw myException("Client Recving failed");
