@@ -36,10 +36,19 @@ void RequestHeader::setupHeader(){
 void RequestHeader::splitHeader(string content){
     size_t startIndex = 0;
     size_t endIndex = content.find("\r\n");
+    if(endIndex == string::npos){
+        throw myException("bad head1");
+    }
     startLine = content.substr(0, endIndex);
     startIndex = content.find("Host");
+    if(startIndex == string::npos){
+        throw myException("bad head2");
+    }
     content = content.substr(startIndex);
     endIndex = content.find("\r\n");
+    if(endIndex == string::npos){
+        throw myException("bad head3");
+    }
     hostLine = content.substr(0, endIndex);    
 }
 
@@ -47,9 +56,15 @@ void RequestHeader::splitHeader(string content){
 void RequestHeader::parseStartLine(string content){
     size_t startIndex = 0;
     size_t endIndex = content.find(" ");
+    if(endIndex == string::npos){
+        throw myException("bad head4");
+    }
     header["METHOD"] = content.substr(startIndex, endIndex);
     content = content.substr(endIndex + 1);
     endIndex = content.find(" ");
+    if(endIndex == string::npos){
+         throw myException("bad head5");
+    }
     header["URI"] = content.substr(startIndex, endIndex);
     if(header["METHOD"] == "CONNECT"){
         header["PORT"] = "443";
@@ -60,6 +75,9 @@ void RequestHeader::parseStartLine(string content){
 
 void RequestHeader::parseHostLine(string content){
     size_t startIndex = content.find(" ") + 1;
+    if(startIndex == string::npos){
+        throw myException("bad head6");
+    }
     string host = content.substr(startIndex);
     size_t endIndex = host.find(":");
     if(endIndex == string::npos){
@@ -70,6 +88,9 @@ void RequestHeader::parseHostLine(string content){
 
 void RequestHeader::parseContentLength(string content) {
     size_t startIndex = content.find("Content-Length:");
+    // if(startIndex == string::npos){
+    //     throw myException("bad head7");
+    // }
     // have Content-Length
     if (startIndex != std::string::npos) {
         startIndex += 16;
@@ -80,7 +101,9 @@ void RequestHeader::parseContentLength(string content) {
         chunked = false;
     } else if (content.find("Transfer-Encoding: chunked") != std::string::npos) {
         chunked = true;
+        contentLen = 0;
     }
+
 }
 
 void RequestHeader::parseOtherInfo(string content){

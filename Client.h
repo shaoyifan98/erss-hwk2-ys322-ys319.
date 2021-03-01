@@ -51,14 +51,14 @@ class Client {
     void clientSend(std::string msg) {
       std::cout << "client sending" << std::endl;
       int msgSize = msg.size();
-      int totalSize = 0;
-      while (totalSize < msgSize) {
+      //int totalSize = 0;
+     // while (totalSize < msgSize) {
         int send_size = send(sockfd, msg.c_str(), msgSize, 0);
         if (send_size < 0) {
           throw myException("Client Sending failed");
         }
-        totalSize += send_size;
-      }
+        //totalSize += send_size;
+     // }
     }
 
     // get sockfd that connects

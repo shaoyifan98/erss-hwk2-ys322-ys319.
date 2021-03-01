@@ -75,14 +75,14 @@ class Server {
     void serverSend(int otherSockfd, std::string msg) {
       std::cout << "server sending" << std::endl;
       int msgSize = msg.size();
-      int totalSize = 0;
-      while (totalSize < msgSize) {
+      //int totalSize = 0;
+      //while (totalSize < msgSize) {
         int send_size = send(otherSockfd, msg.c_str(), msgSize, 0);
         if (send_size < 0) {
           throw myException("Server Sending failed");
         }
-        totalSize += send_size;
-      }
+        //totalSize += send_size;
+      //}
     }
 
     // server receives http request head
@@ -127,7 +127,7 @@ class Server {
           while(1) {
             memset(buffer, 0, sizeof(char));
             recv_size = recv(otherSockfd, buffer, CHUNK_SIZE, 0);
-            if (recv_size < 0) {
+            if (recv_size <= 0) {
               //throw myException("Server Recving failed");
               break;
             }

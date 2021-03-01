@@ -17,7 +17,7 @@ class RequestHeader{
         string if_none_match;
         
 
-        RequestHeader(string str):rawData(str), chunked(false), no_cache(false), no_store(false){
+        RequestHeader(string str):rawData(str), chunked(false), contentLen(0), no_cache(false), no_store(false){
             setupHeader();
             splitHeader(rawData);
             parseStartLine(startLine);
