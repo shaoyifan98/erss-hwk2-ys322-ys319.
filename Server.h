@@ -16,6 +16,7 @@
 
 class Server {
   private:
+    
     int sockfd;
     struct addrinfo * addrSrv;
   
@@ -31,23 +32,24 @@ class Server {
       // convert hints into addrSrv
       if(getaddrinfo(NULL, "12345", &hints, &addrSrv)) {
         perror("convert failed"); 
+        throw myException("convert failed");
       }
       // create socket file descriptor
       if((sockfd = socket(addrSrv->ai_family, addrSrv->ai_socktype, addrSrv->ai_protocol)) == -1) {
-        perror("building socket failed"); 
+        throw myException("building socket failed"); 
       }
       // keep using the port
       int enable = 1;
       if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(enable)) == -1) {
-        perror("setsockopt failed");
+        throw myException("setsockopt failed");
       }
       // bind the socket file descriptor
       if (bind(sockfd, addrSrv->ai_addr, addrSrv->ai_addrlen) == -1) {
-        perror("bind failed");
+        throw myException("bind failed");
       }
       // listening
       if (listen(sockfd, 100) == -1) {
-        perror("listen failed");
+        throw myException("listen failed");
       }
     }
 
@@ -93,10 +95,14 @@ class Server {
       std::string result = "";
       //loop to receive requestHead
       while(1) {
+        std::cout << "recv request in 98" << std::endl;
         memset(buffer, 0, sizeof(char));
         recv_size = recv(otherSockfd, buffer, CHUNK_SIZE, 0);
         if (recv_size < 0) {
           throw myException("Server Recving failed");
+        }
+        if (recv_size == 0) {
+         break;
         }
         std::string temp(buffer, recv_size);
         result += temp;

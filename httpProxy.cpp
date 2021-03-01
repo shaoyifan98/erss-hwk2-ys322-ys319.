@@ -73,18 +73,18 @@ void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &l
   
   // requesting from the remote server
   proxyAsClient.clientSend(request);
-  std::string response = proxyAsClient.clientRecvResp();
+  std::string response = proxyAsClient.clientRecvResp(clientfd);
   std::cout << response << std::endl;
   ResponseHeader resp(response);
 
   // sending back to client
-  server.serverSend(clientfd, response);
+  //server.serverSend(clientfd, response);
 }
 
 void handlePOST(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server) {
   Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
   proxyAsClient.clientSend(request);
-  std::string response = proxyAsClient.clientRecvResp();
+  std::string response = proxyAsClient.clientRecvResp(clientfd);
   ResponseHeader resp(response);
   server.serverSend(clientfd, response);
 }

@@ -32,11 +32,11 @@ class Client {
       hints.ai_socktype = SOCK_STREAM; /* TCP protocol */
       // convert hints into addrSrv
       if(getaddrinfo(hostName.c_str(), portNum.c_str(), &hints, &addrSrv)) {
-        perror("convert failed"); 
+        throw myException("convert failed"); 
       }
       // create socket file descriptor
       if((sockfd = socket(addrSrv->ai_family, addrSrv->ai_socktype, addrSrv->ai_protocol)) == -1) {
-        perror("building socket failed"); 
+        throw myException("building socket failed"); 
       }
       connect(sockfd, addrSrv->ai_addr, addrSrv->ai_addrlen);
     }
@@ -67,7 +67,7 @@ class Client {
     }
 
     // client receives http response
-    std::string clientRecvResp() {
+    std::string clientRecvResp(int clientfd) {
       std::cout << "recv response..." << std::endl;
       char buffer[CHUNK_SIZE];
       int recv_size = 0;
@@ -76,8 +76,13 @@ class Client {
       while(1) {
         memset(buffer, 0, sizeof(char));
         recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
-        if (recv_size < 0) {
-          throw myException("Client Recving failed");
+        int send_size = send(clientfd, buffer, recv_size, 0);
+        if (send_size < 0) {
+          throw myException("Server Sending failed");
+        }
+        if (recv_size <= 0) {
+          //throw myException("Client Recving failed");
+          break;
         }
         std::string temp(buffer, recv_size);
         result += temp;
@@ -91,9 +96,10 @@ class Client {
       ResponseHeader resp(responseHead);
 
       //for status code 1xx, 204 or 304, only response head
-      if (resp.status == 204 || resp.status == 304 || ((resp.status >= 100) && (resp.status < 200))) {
-        return responseHead;
-      }
+      // if (resp.status == 204 || resp.status == 304 || ((resp.status >= 100) && (resp.status < 200))) {
+        
+      //   return responseHead;
+      // }
 
       // responseBody
       std::string responseBody = result.substr(endIndex);
@@ -113,6 +119,10 @@ class Client {
               //throw myException("Client Recving failed");
               break;
             }
+            int send_size = send(clientfd, buffer, recv_size, 0);
+            if (send_size < 0) {
+              throw myException("Server Sending failed");
+            }
             std::string temp(buffer, recv_size);
             responseBody += temp;
             if (responseBody.find("\r\n\r\n") != std::string::npos) {
@@ -120,7 +130,7 @@ class Client {
             }
           }
         }
-      } else { // have Content-Length
+      } else if(resp.contentLen != 0){ // have Content-Length
         int contentLen = resp.contentLen - responseBody.size();   
         int totalLen = 0;
         if (contentLen != 0) {
@@ -134,13 +144,38 @@ class Client {
             if (recv_size <= 0) {
               break;
             }
+            int send_size = send(clientfd, buffer, recv_size, 0);
+            if (send_size < 0) {
+              throw myException("Server Sending failed");
+            }
             std::string temp(buffer, recv_size);
             responseBody += temp;
             totalLen += recv_size;
           }
         }
-      }
-      return (responseHead + responseBody);
+         return (responseHead + responseBody);
+      }else{
+        char buffer[CHUNK_SIZE];
+          int recv_size = 0;
+          //loop to receive requestBody
+          while(1) {
+            memset(buffer, 0, sizeof(char));
+            recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
+            if (recv_size <= 0) {
+                break;
+            }
+            int send_size = send(clientfd, buffer, recv_size, 0);
+            if (send_size < 0) {
+              throw myException("Server Sending failed");
+            }
+            std::string temp(buffer, recv_size);
+            responseBody += temp;
+            
+          }
+      
+        }
+        return (responseHead + responseBody);
+     
     }
 
 };
