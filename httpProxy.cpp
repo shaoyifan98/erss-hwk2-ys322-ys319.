@@ -92,7 +92,7 @@ void handlePOST(int clientfd, std::string request, RequestHeader &req, LogInfo &
 void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server) {
   std::cout << "IN CONNECT" << std::endl;
   Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
-  cout << "HOST IS :" << req.getHeader()["HOST"] << "Port is:" <<req.getHeader()["PORT"] <<endl;
+  cout << "HOST IS :" << req.getHeader()["HOST"] << "Port is:" <<req.getHeader()["PORT"] << endl;
   // send connection response to client
   // Time myTime;
   // std::string connectResp = "HTTP/1.1 200 OK\r\nDate: " + myTime.getCurrentTimeStr() + " GMT\r\nContent-Length: 28\r\n\r\n";
