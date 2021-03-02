@@ -94,7 +94,7 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
   // Time myTime;
   // std::string connectResp = "HTTP/1.1 200 OK\r\nDate: " + myTime.getCurrentTimeStr() + " GMT\r\nContent-Length: 28\r\n\r\n";
   std::string connectResp = "HTTP/1.1 200 OK\r\n\r\n";
-  send(clientfd, connectResp.c_str(), connectResp.length(), 0);
+  send(clientfd, connectResp.c_str(), 19, 0);
   //server.serverSend(clientfd, connectResp);
   // writelog : ID: Responding "RESPONSE"
   // std::string info = "Responding \"HTTP/1.1 200 OK\"\n";
@@ -102,15 +102,15 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
   // set fds
   int proxyfd = proxyAsClient.getSockfd();
   fd_set readfds;
-  // struct timeval waitTime;
-  // waitTime.tv_sec = 60;
-  // waitTime.tv_usec = 0; 
+  struct timeval waitTime;
+  waitTime.tv_sec = 60;
+  waitTime.tv_usec = 0; 
   while (true){
     FD_ZERO(&readfds);
     FD_SET(clientfd, &readfds);
     FD_SET(proxyfd, &readfds);
     int fdnum = max(clientfd, proxyfd) + 1;
-    int res = select(fdnum, &readfds, NULL, NULL, NULL);
+    int res = select(fdnum, &readfds, NULL, NULL, &waitTime);
     if (res <= 0) {
         break;
     }
