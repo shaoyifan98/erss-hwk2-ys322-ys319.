@@ -154,26 +154,7 @@ class Client {
           }
         }
          return (responseHead + responseBody);
-      }else{
-        char buffer[CHUNK_SIZE];
-          int recv_size = 0;
-          //loop to receive requestBody
-          while(1) {
-            memset(buffer, 0, sizeof(char));
-            recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
-            if (recv_size <= 0) {
-                break;
-            }
-            int send_size = send(clientfd, buffer, recv_size, 0);
-            if (send_size < 0) {
-              throw myException("Server Sending failed");
-            }
-            std::string temp(buffer, recv_size);
-            responseBody += temp;
-            
-          }
-      
-        }
+      }
         return (responseHead + responseBody);
      
     }

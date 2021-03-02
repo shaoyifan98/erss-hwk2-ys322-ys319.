@@ -31,7 +31,7 @@ void httpProxy::init() {
 }
 
 void handleReq(ClientInfo & clientinfo, Server & server) {
-  while(true){
+ // while(true){
     std::string request;
   try
   {
@@ -84,7 +84,7 @@ void handleReq(ClientInfo & clientinfo, Server & server) {
     std::cerr << e.what() << '\n';
     //send(clientinfo.getClientfd(), "HTTP/1.1 204 No Content\r\n\r\n", 100, 0);
   }
-  }
+ // }
   
 }
 
@@ -126,68 +126,68 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
   int proxyfd = proxyAsClient.getSockfd();
   fd_set readfds;
 
-  while (1) {
-    FD_ZERO(&readfds);
-    FD_SET(clientfd, &readfds);
-    FD_SET(proxyfd, &readfds);
-    int fdnum = max(clientfd, proxyfd) + 1;
-    select(fdnum, &readfds, NULL, NULL, NULL);
-    int fd[2] = {clientfd, proxyfd};
-    int len;
-    for (int i = 0; i < 2; i++) {
-      char message[65536] = {0};
-      if (FD_ISSET(fd[i], &readfds)) {
-        len = recv(fd[i], message, sizeof(message), 0);
-        if (len <= 0) {
-          return;
-        }
-        else {
-          if (send(fd[1 - i], message, len, 0) <= 0) {
-            return;
-          }
-        }
-      }
-    }
-  }
-  // struct timeval waitTime;
-  // waitTime.tv_sec = 60;
-  // waitTime.tv_usec = 0; 
-  // while (true){
+  // while (1) {
   //   FD_ZERO(&readfds);
   //   FD_SET(clientfd, &readfds);
   //   FD_SET(proxyfd, &readfds);
   //   int fdnum = max(clientfd, proxyfd) + 1;
-  //   int res = select(fdnum, &readfds, NULL, NULL, NULL);
-  //   if (res <= 0) {
-  //       break;
-  //   }
-  //   if (FD_ISSET(clientfd, &readfds)){
-  //     // receive request from client
-  //     std::cout << "CONNECT - from client" << std::endl;
-  //     char buffer[65536];
-  //     memset(buffer, 0, sizeof(char));
-  //     int recv_size = recv(clientfd, buffer, sizeof(buffer), 0);
-  //     if (recv_size <= 0) {
-  //       return;
-  //     }
-  //     // send to server
-  //     if (send(proxyfd, buffer, recv_size, 0) <= 0) {
-  //       return;
-  //     }
-  //   }
-  //   if (FD_ISSET(proxyfd, &readfds)){
-  //     // receive response from server
-  //     std::cout << "CONNECT - from server" << std::endl;
-  //     char buffer[65536];
-  //     memset(buffer, 0, sizeof(char));
-  //     int recv_size = recv(proxyfd, buffer, sizeof(buffer), 0);
-  //     if (recv_size <= 0) {
-  //       return;
-  //     }
-  //     // send to client
-  //     if (send(clientfd, buffer, recv_size, 0) <= 0) {
-  //       return;
+  //   select(fdnum, &readfds, NULL, NULL, NULL);
+  //   int fd[2] = {clientfd, proxyfd};
+  //   int len;
+  //   for (int i = 0; i < 2; i++) {
+  //     char message[65536] = {0};
+  //     if (FD_ISSET(fd[i], &readfds)) {
+  //       len = recv(fd[i], message, sizeof(message), 0);
+  //       if (len <= 0) {
+  //         return;
+  //       }
+  //       else {
+  //         if (send(fd[1 - i], message, len, 0) <= 0) {
+  //           return;
+  //         }
+  //       }
   //     }
   //   }
   // }
+  // struct timeval waitTime;
+  // waitTime.tv_sec = 60;
+  // waitTime.tv_usec = 0; 
+  while (true){
+    FD_ZERO(&readfds);
+    FD_SET(clientfd, &readfds);
+    FD_SET(proxyfd, &readfds);
+    int fdnum = max(clientfd, proxyfd) + 1;
+    int res = select(fdnum, &readfds, NULL, NULL, NULL);
+    if (res <= 0) {
+        break;
+    }
+    if (FD_ISSET(clientfd, &readfds)){
+      // receive request from client
+      std::cout << "CONNECT - from client" << std::endl;
+      char buffer[65536];
+      memset(buffer, 0, sizeof(char));
+      int recv_size = recv(clientfd, buffer, sizeof(buffer), 0);
+      if (recv_size <= 0) {
+        return;
+      }
+      // send to server
+      if (send(proxyfd, buffer, recv_size, 0) <= 0) {
+        return;
+      }
+    }
+    if (FD_ISSET(proxyfd, &readfds)){
+      // receive response from server
+      std::cout << "CONNECT - from server" << std::endl;
+      char buffer[65536];
+      memset(buffer, 0, sizeof(char));
+      int recv_size = recv(proxyfd, buffer, sizeof(buffer), 0);
+      if (recv_size <= 0) {
+        return;
+      }
+      // send to client
+      if (send(clientfd, buffer, recv_size, 0) <= 0) {
+        return;
+      }
+    }
+  }
 }
