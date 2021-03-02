@@ -74,7 +74,7 @@ class Server {
     // server sends a msg
     void serverSend(int otherSockfd, std::string msg) {
       std::cout << "server sending" << std::endl;
-      int send_size = send(otherSockfd, msg.c_str(), msg.length(), 0);
+      int send_size = send(otherSockfd, msg.c_str(), msg.length(), MSG_NOSIGNAL);
       if (send_size < 0) {
         throw myException("Server Sending failed");
       }
@@ -123,7 +123,6 @@ class Server {
             memset(buffer, 0, sizeof(buffer));
             recv_size = recv(otherSockfd, buffer, CHUNK_SIZE, 0);
             if (recv_size < 0) {
-              //throw myException("Server Recving failed");
               break;
             }
             std::string temp(buffer, recv_size);
@@ -137,16 +136,13 @@ class Server {
         if (req.contentLen == 0) {
           return requestHead;
         }
-        int contentLen = req.contentLen - requestBody.size(); 
+        int contentLen = req.contentLen - requestBody.length(); 
         int totalLen = 0;
         if (contentLen != 0) {
           while(totalLen < contentLen) {
             char buffer[contentLen];
             memset(buffer, 0, sizeof(buffer));
             int recv_size = recv(otherSockfd, buffer, contentLen, 0);
-            // if (recv_size < 0) {
-            //   throw myException("Server Recving failed");
-            // }
             if (recv_size <= 0) {
               break;
             }
@@ -154,6 +150,7 @@ class Server {
             requestBody += temp;
             totalLen += recv_size;
           }
+          requestBody += "\r\n";
         }
       }
       return (requestHead + requestBody);

@@ -119,12 +119,12 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
       std::cout << "CONNECT - from client" << std::endl;
       char buffer[65536];
       memset(buffer, 0, sizeof(buffer));
-      int recv_size = recv(clientfd, buffer, 65535, 0);
+      int recv_size = recv(clientfd, buffer, 65536, 0);
       if (recv_size <= 0) {
         return;
       }
       // send to server
-      if (send(proxyfd, buffer, recv_size, 0) <= 0) {
+      if (send(proxyfd, buffer, recv_size, MSG_NOSIGNAL) <= 0) {
         return;
       }
     }
@@ -133,12 +133,12 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
       std::cout << "CONNECT - from server" << std::endl;
       char buffer[65536];
       memset(buffer, 0, sizeof(buffer));
-      int recv_size = recv(proxyfd, buffer, 65535, 0);
+      int recv_size = recv(proxyfd, buffer, 65536, 0);
       if (recv_size <= 0) {
         return;
       }
       // send to client
-      if (send(clientfd, buffer, recv_size, 0) <= 0) {
+      if (send(clientfd, buffer, recv_size, MSG_NOSIGNAL) <= 0) {
         return;
       }
     }

@@ -50,7 +50,7 @@ class Client {
     // client sends a msg
     void clientSend(std::string msg) {
       std::cout << "client sending" << std::endl;
-      int send_size = send(sockfd, msg.c_str(), msg.length(), 0);
+      int send_size = send(sockfd, msg.c_str(), msg.length(), MSG_NOSIGNAL);
       if (send_size < 0) {
         throw myException("Client Sending failed");
       }
@@ -105,7 +105,6 @@ class Client {
             memset(buffer, 0, sizeof(buffer));
             recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
             if (recv_size <= 0) {
-              //throw myException("Client Recving failed");
               break;
             }
             std::string temp(buffer, recv_size);
@@ -119,16 +118,13 @@ class Client {
         if (resp.contentLen == 0) {
           return responseHead;
         }
-        int contentLen = resp.contentLen - responseBody.size();   
+        int contentLen = resp.contentLen - responseBody.length();   
         int totalLen = 0;
         if (contentLen != 0) {
           while (totalLen < contentLen) {
             char buffer[contentLen];
             memset(buffer, 0, sizeof(buffer));
             int recv_size = recv(sockfd, buffer, contentLen, 0);
-            // if (recv_size < 0) {
-            //   throw myException("Client Recving failed");
-            // }
             if (recv_size <= 0) {
               break;
             }
@@ -136,6 +132,7 @@ class Client {
             responseBody += temp;
             totalLen += recv_size;
           }
+          responseBody += "\r\n";
         }
       }
       return (responseHead + responseBody);
