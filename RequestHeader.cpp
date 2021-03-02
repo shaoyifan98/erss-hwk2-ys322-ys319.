@@ -37,8 +37,11 @@ void RequestHeader::splitHeader(string content){
     size_t startIndex = 0;
     size_t endIndex = content.find("\r\n");
     if(endIndex == string::npos){
+        cout << "content is" <<endl;
+    cout << content << endl;
         throw myException("bad head1");
     }
+    
     startLine = content.substr(0, endIndex);
     startIndex = content.find("Host");
     if(startIndex == string::npos){

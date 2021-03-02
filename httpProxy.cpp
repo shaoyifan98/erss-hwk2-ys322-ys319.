@@ -8,6 +8,7 @@
 #include "Client.h"
 #include "LogInfo.h"
 #include "ClientInfo.h"
+#include <signal.h>
 
 void handleReq(ClientInfo & clientinfo, Server & server);
 void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server);
@@ -16,6 +17,7 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
 
 void httpProxy::init() {
   int id = 0;
+  signal(SIGPIPE, SIG_IGN);
   while(true) {
     std::string ip = "";
     int clientfd = server.serverAccept(ip);
@@ -29,12 +31,28 @@ void httpProxy::init() {
 }
 
 void handleReq(ClientInfo & clientinfo, Server & server) {
+  while(true){
+    std::string request;
   try
   {
     LogInfo log(std::to_string(clientinfo.getClientID()));
     std::cout << clientinfo.getClientID() << std::endl;
-    std::string request = server.serverRecvReq(clientinfo.getClientfd());
-    std::cout << request << std::endl;
+    try
+    {
+       request = server.serverRecvReq(clientinfo.getClientfd());
+    }
+    catch(const std::exception& e)
+    {
+      std::cerr << e.what() << '\n';
+      return;
+    }
+    
+   
+    if (request.find("HTTP") == string::npos) {
+      std::cout << "in38" << std::endl;
+       return ;
+    }
+    std::cout << "head is " << request << std::endl;
     RequestHeader req(request);
     /*
     // write loginfo: ID: "REQUEST" from IPFROM @ TIME
@@ -56,7 +74,7 @@ void handleReq(ClientInfo & clientinfo, Server & server) {
       handleCONNECT(clientinfo.getClientfd(), request, req, log, server);
     } else {
       // bad request, close socket
-      send(clientinfo.getClientfd(), "HTTP/1.1 404 Not Found\r\n\r\n", 64, 0);
+      //send(clientinfo.getClientfd(), "HTTP/1.1 404 Not Found\r\n\r\n", 64, 0);
       return;
     }
     return;
@@ -64,8 +82,10 @@ void handleReq(ClientInfo & clientinfo, Server & server) {
   catch(const std::exception& e)
   {
     std::cerr << e.what() << '\n';
-    //send(clientinfo.getClientfd(), "HTTP/1.1 404 Not Found\r\n\r\n", 64, 0);
+    //send(clientinfo.getClientfd(), "HTTP/1.1 204 No Content\r\n\r\n", 100, 0);
   }
+  }
+  
 }
 
 void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server &server) {
