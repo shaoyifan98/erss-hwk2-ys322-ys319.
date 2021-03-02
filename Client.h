@@ -118,7 +118,10 @@ class Client {
         if (resp.contentLen == 0) {
           return responseHead;
         }
-        int contentLen = resp.contentLen - responseBody.length();   
+        int contentLen = resp.contentLen - responseBody.length();
+        if (contentLen == 0) {
+          return (responseHead + responseBody + "\r\n");
+        }
         int totalLen = 0;
         if (contentLen != 0) {
           while (totalLen < contentLen) {

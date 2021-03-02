@@ -137,6 +137,9 @@ class Server {
           return requestHead;
         }
         int contentLen = req.contentLen - requestBody.length(); 
+        if (contentLen == 0) {
+          return (requestHead + requestBody + "\r\n");
+        }
         int totalLen = 0;
         if (contentLen != 0) {
           while(totalLen < contentLen) {
