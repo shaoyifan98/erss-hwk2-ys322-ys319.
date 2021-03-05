@@ -52,13 +52,13 @@ void handleReq(ClientInfo & clientinfo, Server & server) {
     }
     //std::cout << "head is " << request << std::endl;
     RequestHeader req(request);
-    /*
+
     // write loginfo: ID: "REQUEST" from IPFROM @ TIME
     std::string logmsg = "\"" + req.startLine + "\"" + " from " + clientinfo.getClientIP();
     Time myTime;
     logmsg += " @ " + myTime.getCurrentTimeStr();
     log.writeInfo(logmsg);
-    */
+
     if(req.getHeader()["METHOD"] == "GET") {
       std::cout << "get" << std::endl;
       handleGET(clientinfo.getClientfd(), request, req, log, server);
@@ -97,36 +97,56 @@ bool validate(RequestHeader &req, string response,  ResponseHeader& resHeader){
 
 void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server &server) {
   std::string response;
-    cout << "get" << endl;
-    cout << "uri is" << req.getHeader()["URI"] << endl;
-  if(!req.no_store && cache.canUseCache(req)){
-    cout << "enter 103" << endl;
+  cout << "get" << endl;
+  cout << "uri is" << req.getHeader()["URI"] << endl;
+  if(!req.no_store && cache.canUseCache(req, log)){
     response = cache.useCache(req);
-    //ResponseHeader resHeader();
-    //if(req.no_cache || req.no_store ){
-      if(req.no_cache ){
-          cout << "enter 108" << endl;
+    if(req.no_cache ){
+      // writelog : ID: in cache, requires validation
+      std::string info = "in cache, requires validation";
+      log.writeInfo(info);
+
       if(validate(req, response, cache.cache[req.getHeader()["URI"]])){
         //can use content in the cache
         send(clientfd, response.c_str(), response.length(), 0);
         cout << "cache is used" << endl;
-        //cout << response << endl;
-        return;  
-      }else{
+        return;
+      } else {
         Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
         proxyAsClient.clientSend(request);
         response = proxyAsClient.clientRecvResp(clientfd);
       }
     }else{
       //use cache
-        send(clientfd, response.c_str(), response.length(), 0);
-        cout << "cache is used" << endl;
-        return;  
+      // writelog : ID: in cache, valid
+      std::string info = "in cache, valid";
+      log.writeInfo(info);
+
+      send(clientfd, response.c_str(), response.length(), 0);
+      cout << "cache is used" << endl;
+      return;
     }
-  }else{
+  } else {
+    // writelog : ID: not in cache
+    std::string info = "not in cache";
+    log.writeInfo(info);
+
     Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
     proxyAsClient.clientSend(request);
+
+    // writelog : ID: Requesting "REQUEST" from SERVER
+    info = "Requesting \"" + req.startLine + "\" from " + req.getHeader()["HOST"] + "\n";
+    log.writeInfo(info);
+
     response = proxyAsClient.clientRecvResp(clientfd);
+    ResponseHeader resp(response);
+
+    // writelog : ID: Received "RESPONSE" from SERVER
+    info = "Received \"" + resp.startLine + "\" from " + req.getHeader()["HOST"] + "\n";
+    log.writeInfo(info);
+    // writelog : ID: Responding "RESPONSE"
+    info = "Responding \"" + resp.startLine + "\"" + "\n";
+    log.writeInfo(info);
   }
    
   //std::cout << response << std::endl;
@@ -143,10 +163,24 @@ void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &l
 
 void handlePOST(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server) {
   Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
+
+  // writelog : ID: Requesting "REQUEST" from SERVER
+  std::string info = "Requesting \"" + req.startLine + "\" from " + req.getHeader()["HOST"] + "\n";
+  log.writeInfo(info);
+
   proxyAsClient.clientSend(request);
   std::string response = proxyAsClient.clientRecvResp(clientfd);
   ResponseHeader resp(response);
+
+  // writelog : ID: Received "RESPONSE" from SERVER
+  info = "Received \"" + resp.startLine + "\" from " + req.getHeader()["HOST"] + "\n";
+  log.writeInfo(info);
+
   server.serverSend(clientfd, response);
+  // writelog : ID: Responding "RESPONSE"
+  info = "Responding \"" + resp.startLine + "\"" + "\n";
+  log.writeInfo(info);
+
 }
 
 void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server) {

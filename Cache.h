@@ -3,6 +3,7 @@
 #include "RequestHeader.h"
 #include "ResponseHeader.h"
 #include "Time.h"
+#include "LogInfo.h"
 #include <unordered_map>
 #include <list>
 using namespace std;
@@ -16,8 +17,8 @@ class Cache{
        // list<ResponseHeader> cache_list;
         void add(ResponseHeader content);
         void remove(string uri);
-        bool isFresh(RequestHeader& header);
+        bool isFresh(RequestHeader& header, LogInfo & log);
         void deleteOldRecord();
         string useCache(RequestHeader& header);
-        bool canUseCache(RequestHeader& header);
+        bool canUseCache(RequestHeader& header, LogInfo & log);
 };

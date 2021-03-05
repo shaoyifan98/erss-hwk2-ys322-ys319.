@@ -1,3 +1,6 @@
+#ifndef LOGINFO
+#define LOGINFO
+
 #include <string>
 #include <mutex>
 #include <fstream>
@@ -32,3 +35,5 @@ class LogInfo {
     }
 
 };
+
+#endif
