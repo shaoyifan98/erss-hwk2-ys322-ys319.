@@ -2,6 +2,7 @@
 #define RESPONSEHEADER
 #include <string>
 #include <map>
+#include "Time.h"
 using namespace std;
 class ResponseHeader{
     public:
@@ -23,7 +24,7 @@ class ResponseHeader{
         bool no_cache;
         bool no_store;
         bool must_revalidate;
-
+        Time time;
 
         ResponseHeader(string str):rawData(str), status(0), etag(""), date(""), max_age(-1), last_modified(""), expire(""), payload(""), uri(""),
         no_cache(false), no_store(false), must_revalidate(false){
@@ -32,6 +33,7 @@ class ResponseHeader{
         ResponseHeader(){}
 
         void parse(string content);
+        string getExpireTime();
         
 };
 #endif

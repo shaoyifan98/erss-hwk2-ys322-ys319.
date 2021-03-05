@@ -155,9 +155,18 @@ void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &l
   if(!resp.no_store && resp.max_age != 0){
     resp.uri = req.getHeader()["URI"];
     cache.add(resp);
+    // writelog : ID: cached, expires at EXPIRES
+    std::string info = "cached, expires at " + resp.getExpireTime();
+    log.writeInfo(info);
     cout << "add in to cache, and uri is" << resp.uri << endl;
-
-    //cout << response << endl;
+  } else if (resp.no_store) {
+    // ID: cached, but requires re-validation
+    std::string info = "cached, but requires re-validation";
+    log.writeInfo(info);
+  } else if (resp.max_age == 0) {
+    // ID: not cacheable because REASON
+    std::string info = "not cacheable because max_age is 0";
+    log.writeInfo(info);
   }
 }
 

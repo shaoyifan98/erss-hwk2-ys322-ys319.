@@ -22,12 +22,20 @@ void Time::setup(){
     month.insert(pair<std::string, int>("Oct", 9));
     month.insert(pair<std::string, int>("Nov", 10));
     month.insert(pair<std::string, int>("Dec", 11));
+    month.insert(std::pair<std::string, int>("Sun", 0));
+    month.insert(std::pair<std::string, int>("Mon", 1));
+    month.insert(std::pair<std::string, int>("Tue", 2));
+    month.insert(std::pair<std::string, int>("Wed", 3));
+    month.insert(std::pair<std::string, int>("Thu", 4));
+    month.insert(std::pair<std::string, int>("Fri", 5));
+    month.insert(std::pair<std::string, int>("Sat", 6));
 }
 
 //Wed, 21 Oct 2015 07:28:00
 struct tm Time::parseTime(string str){
     struct tm time;
     time.tm_mday = atoi(str.substr(str.find(" ")).c_str());
+    time.tm_wday = atoi(str.substr(0, 3).c_str());
     time.tm_mon = month[str.substr(8, 3)];
     time.tm_year = atoi(str.substr(12, 4).c_str()) - 1900;
     strptime(str.substr(17).c_str(), "%H:%M:%S", &time);

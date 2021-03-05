@@ -98,3 +98,18 @@ void ResponseHeader::parse(string content){
 
 }
 
+string ResponseHeader::getExpireTime(){
+    if(max_age > 0){
+        tm temp = time.parseTime(date);
+        time_t exp_time = mktime(&temp) + max_age;
+            //exp_time += res.max_age;
+        struct tm * exp_time_tm = gmtime(&exp_time);
+        //string exp_date(asctime(exp_time_tm));
+        return asctime(exp_time_tm);
+    }
+
+    if(expire != ""){
+        return expire;
+    }
+    return "";
+}

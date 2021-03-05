@@ -27,12 +27,17 @@ bool Cache::isFresh(RequestHeader& header, LogInfo & log){
    ResponseHeader res = cache[uri];
    if(res.max_age != -1){
        if(time.computeTimeDiff(res.date) > res.max_age){
-          remove(uri);
-          cout << "not fresh1" << endl;
+            remove(uri);
+            cout << "not fresh1" << endl;
           // writelog : ID: in cache, but expired at EXPIREDTIME
-          std::string info = "in cache, but expired at EXPIREDTIME";
-          log.writeInfo(info);
-          return false; 
+            tm temp = time.parseTime(res.date);
+            time_t exp_time = mktime(&temp) +res.max_age;
+            //exp_time += res.max_age;
+            struct tm * exp_time_tm = gmtime(&exp_time);
+            //const char * t = asctime(asc_time);
+            std::string info = "in cache, but expired at " + *asctime(exp_time_tm);
+            log.writeInfo(info);
+            return false; 
        }
    }
    if(res.expire != ""){
