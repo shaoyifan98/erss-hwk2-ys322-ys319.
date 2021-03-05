@@ -1,6 +1,13 @@
 #include "Time.h"
 #include <iostream>
 #include <string.h>
+// int main(){
+//     Time myTime;
+//     tm time = myTime.parseTime("Wed, 21 Oct 2015 07:28:00");
+//     cout << " parm  time is" << asctime(&time) << endl;
+//     cout << myTime.computeTimeDiff("Wed, 21 Oct 2015 07:28:00") << endl;
+
+// }
 
 void Time::setup(){
     month.insert(pair<std::string, int>("Jan", 0));
@@ -57,8 +64,11 @@ double Time::computeTimeDiff(string str1, string str2){
 
 //return current time - str
 double Time::computeTimeDiff(string str){
+    cout << "parm time str is" << str << endl;
     tm tm1 = parseTime(str);
     tm tm2 = getCurrentTime();
+    cout << " current time is" << asctime(&tm2) << endl;
+    cout << " parm  time is" << asctime(&tm1) << endl;
     return computeTimeDiff(tm2, tm1);
 }
 

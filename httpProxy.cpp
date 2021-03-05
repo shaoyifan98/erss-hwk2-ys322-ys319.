@@ -47,10 +47,10 @@ void handleReq(ClientInfo & clientinfo, Server & server) {
       return;
     }
     if (request.find("HTTP") == string::npos) {
-      std::cout << "in38" << std::endl;
+      //std::cout << "in38" << std::endl;
        return ;
     }
-    std::cout << "head is " << request << std::endl;
+    //std::cout << "head is " << request << std::endl;
     RequestHeader req(request);
     /*
     // write loginfo: ID: "REQUEST" from IPFROM @ TIME
@@ -86,7 +86,7 @@ bool validate(RequestHeader &req, string response,  ResponseHeader& resHeader){
   if(resHeader.last_modified != ""){
      newRequest.append("If-Modified-Since: " + resHeader.last_modified +"\r\n");
   }
-  newRequest.append("\r\n\r\n");
+  newRequest.append("\r\n");
   proxyAsClient.clientSend(newRequest);
   string newResponse = proxyAsClient.clientRecvResp();
   if(newResponse.find("304 Not Modified") != string::npos){
@@ -97,13 +97,20 @@ bool validate(RequestHeader &req, string response,  ResponseHeader& resHeader){
 
 void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server &server) {
   std::string response;
-  
+    cout << "get" << endl;
+    cout << "uri is" << req.getHeader()["URI"] << endl;
   if(!req.no_store && cache.canUseCache(req)){
+    cout << "enter 103" << endl;
     response = cache.useCache(req);
     //ResponseHeader resHeader();
-    if(req.no_cache || req.no_store ){
+    //if(req.no_cache || req.no_store ){
+      if(req.no_cache ){
+          cout << "enter 108" << endl;
       if(validate(req, response, cache.cache[req.getHeader()["URI"]])){
+        //can use content in the cache
         send(clientfd, response.c_str(), response.length(), 0);
+        cout << "cache is used" << endl;
+        //cout << response << endl;
         return;  
       }else{
         Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
@@ -111,7 +118,9 @@ void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &l
         response = proxyAsClient.clientRecvResp(clientfd);
       }
     }else{
+      //use cache
         send(clientfd, response.c_str(), response.length(), 0);
+        cout << "cache is used" << endl;
         return;  
     }
   }else{
@@ -120,11 +129,15 @@ void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &l
     response = proxyAsClient.clientRecvResp(clientfd);
   }
    
-  std::cout << response << std::endl;
+  //std::cout << response << std::endl;
   
   ResponseHeader resp(response);
-  if(!(resp.no_store || resp.max_age != 0)){
+  if(!resp.no_store && resp.max_age != 0){
+    resp.uri = req.getHeader()["URI"];
     cache.add(resp);
+    cout << "add in to cache, and uri is" << resp.uri << endl;
+
+    //cout << response << endl;
   }
 }
 
@@ -147,6 +160,7 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
   waitTime.tv_sec = 15;
   waitTime.tv_usec = 0; 
   fd_set readfds;
+  //need to be replaced
   while (true) {
     FD_ZERO(&readfds);
     FD_SET(clientfd, &readfds);

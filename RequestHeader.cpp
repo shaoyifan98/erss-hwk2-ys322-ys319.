@@ -17,8 +17,8 @@ void RequestHeader::splitHeader(string content){
     size_t startIndex = 0;
     size_t endIndex = content.find("\r\n");
     if(endIndex == string::npos){
-        cout << "content is" <<endl;
-    cout << content << endl;
+        //cout << "content is" <<endl;
+    //cout << content << endl;
         throw myException("bad head1");
     }
     

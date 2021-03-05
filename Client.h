@@ -50,7 +50,7 @@ class Client {
 
     // client sends a msg
     void clientSend(std::string msg) {
-      std::cout << "client sending" << std::endl;
+      //std::cout << "client sending" << std::endl;
       int msgSize = msg.size();
         int send_size = send(sockfd, msg.c_str(), msgSize, 0);
         if (send_size < 0) {
