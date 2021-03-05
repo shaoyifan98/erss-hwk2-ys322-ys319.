@@ -16,10 +16,8 @@
 
 class Server {
   private:
-    
     int sockfd;
     struct addrinfo * addrSrv;
-  
   public:
     // server constructor
     Server() {
@@ -121,7 +119,6 @@ class Server {
       }
       // requestBody
       std::string requestBody = result.substr(endIndex);
-
       // for any other methods, need request body
       // have Transfer-Encoding
       if (req.chunked) {
@@ -134,7 +131,6 @@ class Server {
             memset(buffer, 0, sizeof(char));
             recv_size = recv(otherSockfd, buffer, CHUNK_SIZE, 0);
             if (recv_size <= 0) {
-              //throw myException("Server Recving failed");
               break;
             }
             std::string temp(buffer, recv_size);
@@ -152,9 +148,6 @@ class Server {
             char buffer[contentLen];
             memset(buffer, 0, sizeof(char));
             int recv_size = recv(otherSockfd, buffer, contentLen, 0);
-            // if (recv_size < 0) {
-            //   throw myException("Server Recving failed");
-            // }
             if (recv_size <= 0) {
               break;
             }

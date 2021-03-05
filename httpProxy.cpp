@@ -9,12 +9,15 @@
 #include "LogInfo.h"
 #include "ClientInfo.h"
 #include <signal.h>
+#include "Cache.h"
+#include "ResponseHeader.h"
+
 
 void handleReq(ClientInfo & clientinfo, Server & server);
 void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server);
 void handlePOST(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server);
 void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server);
-
+static Cache cache;
 void httpProxy::init() {
   int id = 0;
   signal(SIGPIPE, SIG_IGN);
@@ -32,22 +35,17 @@ void httpProxy::init() {
 
 void handleReq(ClientInfo & clientinfo, Server & server) {
  // while(true){
-    std::string request;
-  try
-  {
+  std::string request;
+  try{
     LogInfo log(std::to_string(clientinfo.getClientID()));
     std::cout << clientinfo.getClientID() << std::endl;
-    try
-    {
+    try{
        request = server.serverRecvReq(clientinfo.getClientfd());
     }
-    catch(const std::exception& e)
-    {
+    catch(const std::exception& e){
       std::cerr << e.what() << '\n';
       return;
     }
-    
-   
     if (request.find("HTTP") == string::npos) {
       std::cout << "in38" << std::endl;
        return ;
@@ -61,8 +59,6 @@ void handleReq(ClientInfo & clientinfo, Server & server) {
     logmsg += " @ " + myTime.getCurrentTimeStr();
     log.writeInfo(logmsg);
     */
-    
-    //req.startLine
     if(req.getHeader()["METHOD"] == "GET") {
       std::cout << "get" << std::endl;
       handleGET(clientinfo.getClientfd(), request, req, log, server);
@@ -73,32 +69,63 @@ void handleReq(ClientInfo & clientinfo, Server & server) {
       std::cout << "connect" << std::endl;
       handleCONNECT(clientinfo.getClientfd(), request, req, log, server);
     } else {
-      // bad request, close socket
-      //send(clientinfo.getClientfd(), "HTTP/1.1 404 Not Found\r\n\r\n", 64, 0);
       return;
     }
-    return;
+  }catch(const std::exception& e){
+      std::cerr << e.what() << '\n';
+      send(clientinfo.getClientfd(), "HTTP/1.1 400 Bad Request\r\n\r\n", 100, 0);
+    }
   }
-  catch(const std::exception& e)
-  {
-    std::cerr << e.what() << '\n';
-    //send(clientinfo.getClientfd(), "HTTP/1.1 204 No Content\r\n\r\n", 100, 0);
-  }
- // }
   
+bool validate(RequestHeader &req, string response,  ResponseHeader& resHeader){
+  Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
+  string newRequest = req.startLine + "\r\n" + req.hostLine + "\r\n";
+  if(resHeader.etag != ""){
+    newRequest.append("If-None-Match: \"" + resHeader.etag + "\"\r\n");
+  }
+  if(resHeader.last_modified != ""){
+     newRequest.append("If-Modified-Since: " + resHeader.last_modified +"\r\n");
+  }
+  newRequest.append("\r\n\r\n");
+  proxyAsClient.clientSend(newRequest);
+  string newResponse = proxyAsClient.clientRecvResp();
+  if(newResponse.find("304 Not Modified") != string::npos){
+    return true;
+  }
+  return false;
 }
 
 void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server &server) {
-  Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
+  std::string response;
   
-  // requesting from the remote server
-  proxyAsClient.clientSend(request);
-  std::string response = proxyAsClient.clientRecvResp(clientfd);
+  if(!req.no_store && cache.canUseCache(req)){
+    response = cache.useCache(req);
+    //ResponseHeader resHeader();
+    if(req.no_cache || req.no_store ){
+      if(validate(req, response, cache.cache[req.getHeader()["URI"]])){
+        send(clientfd, response.c_str(), response.length(), 0);
+        return;  
+      }else{
+        Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
+        proxyAsClient.clientSend(request);
+        response = proxyAsClient.clientRecvResp(clientfd);
+      }
+    }else{
+        send(clientfd, response.c_str(), response.length(), 0);
+        return;  
+    }
+  }else{
+    Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
+    proxyAsClient.clientSend(request);
+    response = proxyAsClient.clientRecvResp(clientfd);
+  }
+   
   std::cout << response << std::endl;
+  
   ResponseHeader resp(response);
-
-  // sending back to client
-  //server.serverSend(clientfd, response);
+  if(!(resp.no_store || resp.max_age != 0)){
+    cache.add(resp);
+  }
 }
 
 void handlePOST(int clientfd, std::string request, RequestHeader &req, LogInfo &log, Server & server) {
@@ -113,80 +140,33 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
   std::cout << "IN CONNECT" << std::endl;
   Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
   cout << "HOST IS :" << req.getHeader()["HOST"] << "Port is:" <<req.getHeader()["PORT"] << endl;
-  // send connection response to client
-  // Time myTime;
-  // std::string connectResp = "HTTP/1.1 200 OK\r\nDate: " + myTime.getCurrentTimeStr() + " GMT\r\nContent-Length: 28\r\n\r\n";
-  // connectResp += "Https Connection Established\r\n";
   send(clientfd, "HTTP/1.1 200 OK\r\n\r\n", 64, 0);
-  //server.serverSend(clientfd, connectResp);
-  // writelog : ID: Responding "RESPONSE"
-  // std::string info = "Responding \"HTTP/1.1 200 OK\"\n";
-
   // set fds
   int proxyfd = proxyAsClient.getSockfd();
+  struct timeval waitTime;
+  waitTime.tv_sec = 15;
+  waitTime.tv_usec = 0; 
   fd_set readfds;
-
-  // while (1) {
-  //   FD_ZERO(&readfds);
-  //   FD_SET(clientfd, &readfds);
-  //   FD_SET(proxyfd, &readfds);
-  //   int fdnum = max(clientfd, proxyfd) + 1;
-  //   select(fdnum, &readfds, NULL, NULL, NULL);
-  //   int fd[2] = {clientfd, proxyfd};
-  //   int len;
-  //   for (int i = 0; i < 2; i++) {
-  //     char message[65536] = {0};
-  //     if (FD_ISSET(fd[i], &readfds)) {
-  //       len = recv(fd[i], message, sizeof(message), 0);
-  //       if (len <= 0) {
-  //         return;
-  //       }
-  //       else {
-  //         if (send(fd[1 - i], message, len, 0) <= 0) {
-  //           return;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-  // struct timeval waitTime;
-  // waitTime.tv_sec = 60;
-  // waitTime.tv_usec = 0; 
-  while (true){
+  while (true) {
     FD_ZERO(&readfds);
     FD_SET(clientfd, &readfds);
     FD_SET(proxyfd, &readfds);
     int fdnum = max(clientfd, proxyfd) + 1;
-    int res = select(fdnum, &readfds, NULL, NULL, NULL);
-    if (res <= 0) {
-        break;
-    }
-    if (FD_ISSET(clientfd, &readfds)){
-      // receive request from client
-      std::cout << "CONNECT - from client" << std::endl;
-      char buffer[65536];
-      memset(buffer, 0, sizeof(char));
-      int recv_size = recv(clientfd, buffer, sizeof(buffer), 0);
-      if (recv_size <= 0) {
-        return;
-      }
-      // send to server
-      if (send(proxyfd, buffer, recv_size, 0) <= 0) {
-        return;
-      }
-    }
-    if (FD_ISSET(proxyfd, &readfds)){
-      // receive response from server
-      std::cout << "CONNECT - from server" << std::endl;
-      char buffer[65536];
-      memset(buffer, 0, sizeof(char));
-      int recv_size = recv(proxyfd, buffer, sizeof(buffer), 0);
-      if (recv_size <= 0) {
-        return;
-      }
-      // send to client
-      if (send(clientfd, buffer, recv_size, 0) <= 0) {
-        return;
+    select(fdnum, &readfds, NULL, NULL, &waitTime);
+    int fdArr[2] = {clientfd, proxyfd};
+    int len;
+    for (int i = 0; i < 2; i++) {
+      char data[65536];
+      if (FD_ISSET(fdArr[i], &readfds)) {
+        len = recv(fdArr[i], data, sizeof(data), 0);
+        if (len <= 0) {
+          return;
+        }
+        else {
+          if (send(fdArr[1 - i], data, len, 0) <= 0) {
+            return;
+          }
+        }
       }
     }
   }

@@ -1,3 +1,5 @@
+#ifndef RESPONSEHEADER
+#define RESPONSEHEADER
 #include <string>
 #include <map>
 using namespace std;
@@ -18,14 +20,20 @@ class ResponseHeader{
         //the content
         string payload;
         string uri;
+        bool no_cache;
+        bool no_store;
+        bool must_revalidate;
 
-        ResponseHeader(string str):rawData(str), status(0), etag(""), date(""), max_age(-1), last_modified(""), expire(""), payload(""), uri(""){
+
+        ResponseHeader(string str):rawData(str), status(0), etag(""), date(""), max_age(-1), last_modified(""), expire(""), payload(""), uri(""),
+        no_cache(false), no_store(false), must_revalidate(false){
           parse(rawData);
         }
+        ResponseHeader(){}
 
         void parse(string content);
         
 };
-
+#endif
 
 

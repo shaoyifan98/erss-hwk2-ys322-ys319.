@@ -11,6 +11,7 @@
 #include "myException.h"
 #include "ResponseHeader.h"
 
+
 #define CHUNK_SIZE 65536
 
 class Client {
@@ -51,14 +52,10 @@ class Client {
     void clientSend(std::string msg) {
       std::cout << "client sending" << std::endl;
       int msgSize = msg.size();
-      //int totalSize = 0;
-     // while (totalSize < msgSize) {
         int send_size = send(sockfd, msg.c_str(), msgSize, 0);
         if (send_size < 0) {
           throw myException("Client Sending failed");
         }
-        //totalSize += send_size;
-     // }
     }
 
     // get sockfd that connects
@@ -80,7 +77,7 @@ class Client {
         if (send_size < 0) {
           throw myException("Server Sending failed");
         }
-        if (recv_size <= 0) {
+        if (recv_size == 0) {
           //throw myException("Client Recving failed");
           break;
         }
@@ -116,7 +113,6 @@ class Client {
             memset(buffer, 0, sizeof(char));
             recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
             if (recv_size <= 0) {
-              //throw myException("Client Recving failed");
               break;
             }
             int send_size = send(clientfd, buffer, recv_size, 0);
@@ -138,9 +134,6 @@ class Client {
             char buffer[contentLen];
             memset(buffer, 0, sizeof(char));
             int recv_size = recv(sockfd, buffer, contentLen, 0);
-            // if (recv_size < 0) {
-            //   throw myException("Client Recving failed");
-            // }
             if (recv_size <= 0) {
               break;
             }
@@ -156,7 +149,70 @@ class Client {
          return (responseHead + responseBody);
       }
         return (responseHead + responseBody);
-     
     }
+
+    std::string clientRecvResp() {
+      std::cout << "recv response..." << std::endl;
+      char buffer[CHUNK_SIZE];
+      int recv_size = 0;
+      std::string result = "";
+      //loop to receive responseHead
+      while(1) {
+        memset(buffer, 0, sizeof(char));
+        recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
+        std::string temp(buffer, recv_size);
+        result += temp;
+        if (result.find("\r\n\r\n") != std::string::npos) {
+          break;
+        }
+      }
+      int endIndex = result.find("\r\n\r\n") + 4;
+      // responseHead
+      std::string responseHead = result.substr(0, endIndex);
+      ResponseHeader resp(responseHead);
+      std::string responseBody = result.substr(endIndex);
+
+      // for any other methods, need response body or chunked encoding
+      // Transfer-encoding chunked
+      if (resp.chunked) {
+        if (responseBody.find("\r\n\r\n") == std::string::npos) {
+          // keep recieving
+          char buffer[CHUNK_SIZE];
+          int recv_size = 0;
+          //loop to receive requestBody
+          while(1) {
+            memset(buffer, 0, sizeof(char));
+            recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
+            if (recv_size <= 0) {
+              break;
+            }
+            std::string temp(buffer, recv_size);
+            responseBody += temp;
+            if (responseBody.find("\r\n\r\n") != std::string::npos) {
+              break;
+            }
+          }
+        }
+      } else if(resp.contentLen != 0){ // have Content-Length
+        int contentLen = resp.contentLen - responseBody.size();   
+        int totalLen = 0;
+        if (contentLen != 0) {
+          while (totalLen < contentLen) {
+            char buffer[contentLen];
+            memset(buffer, 0, sizeof(char));
+            int recv_size = recv(sockfd, buffer, contentLen, 0);
+            if (recv_size <= 0) {
+              break;
+            }
+            std::string temp(buffer, recv_size);
+            responseBody += temp;
+            totalLen += recv_size;
+          }
+        }
+         return (responseHead + responseBody);
+      }
+        return (responseHead + responseBody);
+    }
+
 
 };

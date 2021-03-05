@@ -53,7 +53,7 @@ void ResponseHeader::parse(string content){
     }
 
     //ETag: "33a64df551425fcc55e4d42a148795d9f25f89d4"
-     if((index = content.find("ETag: ")) != string::npos){
+    if((index = content.find("ETag: ")) != string::npos){
         string temp = content.substr(index);
         size_t start = temp.find("\"") + 1;
         temp = temp.substr(start);
@@ -64,6 +64,18 @@ void ResponseHeader::parse(string content){
     if((index = content.find("\r\n\r\n")) != string::npos){
         index = index + 4;
         payload = content.substr(index);
+    }
+
+    if((index = content.find("no-cache")) != string::npos){
+       no_cache = true;
+    }
+
+    if((index = content.find("no-store")) != string::npos){
+       no_store = true;
+    }
+
+    if((index = content.find("must-revalidate")) != string::npos){
+        must_revalidate = true;
     }
 
     size_t startIndex = content.find("Content-Length:");

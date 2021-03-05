@@ -12,11 +12,12 @@ class Cache{
         size_t count;
         Time time;
         Cache():count(0){};
-        map<string, list<ResponseHeader>::iterator> cache;
-        list<ResponseHeader> cache_list;
-        void add(string uri, ResponseHeader content);
+        map<string, ResponseHeader> cache;
+       // list<ResponseHeader> cache_list;
+        void add(ResponseHeader content);
         void remove(string uri);
         bool isFresh(RequestHeader& header);
         void deleteOldRecord();
         string useCache(RequestHeader& header);
+        bool canUseCache(RequestHeader& header);
 };

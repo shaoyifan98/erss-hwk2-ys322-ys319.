@@ -1,26 +1,7 @@
 #include <iostream>
 #include "RequestHeader.h"
 #include "myException.h"
-// int main(){
-    
-//     string str = "GET / HTTP/1.1\r\nHost: www.baidu.com\r\nCache-Control: no-cache\r\nIf-Modified-Since: Wed, 21 Oct 2018 07:28:00 GMT\r\nIf-None-Match: \"33a64df\"";
-//     str += "\r\nContent-Length: 11\r\n\r\n";
-//     RequestHeader head(str);
-//     map<string, string>::iterator iter = head.getHeader().begin();
-//     while(iter != head.getHeader().end()) {
-//         cout << iter->first << ": " << iter->second << endl;
-//         iter++;
-//     }
-//     string str = "123sdfsdfsdf123";
-//     int i = atoi(str.c_str());
-//     cout << i << endl;
-//     cout << head.if_modified_since << endl;
-//     cout << head.if_none_match << endl;
-//     if(head.no_cache){
-//         cout << "no cache" << endl;
-//     }
-//     cout << "content length: " << to_string(head.contentLen) << endl;
-// }
+
 
 map<string, string>& RequestHeader::getHeader(){
     return header;
@@ -30,7 +11,6 @@ void RequestHeader::setupHeader(){
     header.insert(pair<string, string>("URI", ""));
     header.insert(pair<string, string>("HOST", ""));
     header.insert(pair<string, string>("PORT", ""));
-    //header.insert(pair<string, string>("EXPIRE", ""));
 }
 
 void RequestHeader::splitHeader(string content){
@@ -91,10 +71,6 @@ void RequestHeader::parseHostLine(string content){
 
 void RequestHeader::parseContentLength(string content) {
     size_t startIndex = content.find("Content-Length:");
-    // if(startIndex == string::npos){
-    //     throw myException("bad head7");
-    // }
-    // have Content-Length
     if (startIndex != std::string::npos) {
         startIndex += 16;
         string contentLength = content.substr(startIndex);
@@ -130,4 +106,13 @@ void RequestHeader::parseOtherInfo(string content){
         size_t end = temp.find("\"");
         if_none_match = temp.substr(0, end);
     }
+
+    if((index = content.find("ETag: ")) != string::npos){
+        string temp = content.substr(index);
+        size_t start = temp.find("\"") + 1;
+        temp = temp.substr(start);
+        size_t end = temp.find("\"");
+        etag = temp.substr(0, end);
+    }
+
 }

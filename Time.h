@@ -1,3 +1,5 @@
+#ifndef TIME
+#define TIME
 #include <string>
 #include <map>
 #include <time.h>
@@ -22,3 +24,4 @@ class Time{
         double computeTimeDiff(string str);
         double computeTimeDiff(tm& tm1, tm& tm2);
 };
+#endif

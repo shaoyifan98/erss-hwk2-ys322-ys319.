@@ -15,9 +15,11 @@ class RequestHeader{
         bool no_store;
         string if_modified_since;
         string if_none_match;
+        string etag;
         
 
-        RequestHeader(string str):rawData(str), chunked(false), contentLen(0), no_cache(false), no_store(false){
+        RequestHeader(string str):rawData(str), chunked(false), contentLen(0), no_cache(false), no_store(false), if_modified_since(""),
+        if_none_match(""), etag(""){
             setupHeader();
             splitHeader(rawData);
             parseStartLine(startLine);
