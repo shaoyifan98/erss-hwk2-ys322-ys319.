@@ -69,11 +69,15 @@ void handleReq(ClientInfo & clientinfo, Server & server) {
       std::cout << "connect" << std::endl;
       handleCONNECT(clientinfo.getClientfd(), request, req, log, server);
     } else {
+      // 400 bad request response
+      send(clientinfo.getClientfd(), "HTTP/1.1 400 Bad Request\r\n\r\n", 100, 0);
+      // writelog : ID: 400 Bad Request
+      std::string info = "Responding \"400 Bad Request\"";
+      log.writeInfo(info);
       return;
     }
-  }catch(const std::exception& e){
+  } catch(const std::exception& e) {
       std::cerr << e.what() << '\n';
-      send(clientinfo.getClientfd(), "HTTP/1.1 400 Bad Request\r\n\r\n", 100, 0);
     }
   }
   
@@ -148,9 +152,7 @@ void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &l
     info = "Responding \"" + resp.startLine + "\"" + "\n";
     log.writeInfo(info);
   }
-   
-  //std::cout << response << std::endl;
-  
+
   ResponseHeader resp(response);
   if(!resp.no_store && resp.max_age != 0){
     resp.uri = req.getHeader()["URI"];
@@ -227,4 +229,7 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
       }
     }
   }
+  // writelog : ID: Tunnel closed
+  std::string info = "Tunnel closed";
+  log.writeInfo(info);
 }
