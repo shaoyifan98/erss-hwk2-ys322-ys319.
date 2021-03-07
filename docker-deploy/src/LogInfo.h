@@ -16,7 +16,8 @@ class LogInfo {
     void writeInfo(std::string logInfo) {
       std::mutex writeLock;
       writeLock.lock();
-      std::ofstream logfile("/var/log/erss/proxy.log");
+      std::ofstream logfile;
+      logfile.open("/var/log/erss/proxy.log", ios::app);
       if (logfile.is_open()){
         logfile << id << ": " << logInfo << std::endl;
       }

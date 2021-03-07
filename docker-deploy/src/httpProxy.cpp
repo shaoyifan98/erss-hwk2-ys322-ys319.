@@ -139,17 +139,17 @@ void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &l
     proxyAsClient.clientSend(request);
 
     // writelog : ID: Requesting "REQUEST" from SERVER
-    info = "Requesting \"" + req.startLine + "\" from " + req.getHeader()["HOST"] + "\n";
+    info = "Requesting \"" + req.startLine + "\" from " + req.getHeader()["HOST"];
     log.writeInfo(info);
 
     response = proxyAsClient.clientRecvResp(clientfd);
     ResponseHeader resp(response);
 
     // writelog : ID: Received "RESPONSE" from SERVER
-    info = "Received \"" + resp.startLine + "\" from " + req.getHeader()["HOST"] + "\n";
+    info = "Received \"" + resp.startLine + "\" from " + req.getHeader()["HOST"];
     log.writeInfo(info);
     // writelog : ID: Responding "RESPONSE"
-    info = "Responding \"" + resp.startLine + "\"" + "\n";
+    info = "Responding \"" + resp.startLine + "\"";
     log.writeInfo(info);
   }
 
@@ -176,7 +176,7 @@ void handlePOST(int clientfd, std::string request, RequestHeader &req, LogInfo &
   Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);
 
   // writelog : ID: Requesting "REQUEST" from SERVER
-  std::string info = "Requesting \"" + req.startLine + "\" from " + req.getHeader()["HOST"] + "\n";
+  std::string info = "Requesting \"" + req.startLine + "\" from " + req.getHeader()["HOST"];
   log.writeInfo(info);
 
   proxyAsClient.clientSend(request);
@@ -184,12 +184,12 @@ void handlePOST(int clientfd, std::string request, RequestHeader &req, LogInfo &
   ResponseHeader resp(response);
 
   // writelog : ID: Received "RESPONSE" from SERVER
-  info = "Received \"" + resp.startLine + "\" from " + req.getHeader()["HOST"] + "\n";
+  info = "Received \"" + resp.startLine + "\" from " + req.getHeader()["HOST"];
   log.writeInfo(info);
 
   server.serverSend(clientfd, response);
   // writelog : ID: Responding "RESPONSE"
-  info = "Responding \"" + resp.startLine + "\"" + "\n";
+  info = "Responding \"" + resp.startLine + "\"";
   log.writeInfo(info);
 
 }

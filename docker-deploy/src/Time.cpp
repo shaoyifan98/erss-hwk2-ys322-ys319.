@@ -52,7 +52,9 @@ struct tm Time::getCurrentTime(){
 //get the current time in GMT in string literal
 string Time::getCurrentTimeStr() {
     struct tm time = getCurrentTime();
-    return string(asctime(&time));
+    string timestr(asctime(&time));
+    timestr.pop_back();
+    return timestr;
 }
 
 //return tm1 - tm2
