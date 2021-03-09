@@ -64,7 +64,7 @@ void RequestHeader::parseHostLine(string content){
     string host = content.substr(startIndex);
     size_t endIndex = host.find(":");
     if(endIndex == string::npos){
-      endIndex = content.length();
+      endIndex = content.size();
     }
     header["HOST"] = content.substr(startIndex, endIndex);
 }

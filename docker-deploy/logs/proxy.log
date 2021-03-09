@@ -1,37 +1,29 @@
-0: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 05:59:59 2021
-0: not in cache
-0: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
-1: "GET http://www.rabihyounes.com/ HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:04 2021
-1: not in cache
-1: Requesting "GET http://www.rabihyounes.com/ HTTP/1.1" from www.rabihyounes.com
-2: "CONNECT fonts.googleapis.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:04 2021
-5: "CONNECT use.fontawesome.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:04 2021
-0: Received "HTTP/1.1 200 OK" from www.httpwatch.com
-0: Responding "HTTP/1.1 200 OK"
-0: not cacheable because no-store
-8: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:07 2021
-10: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:07 2021
-13: "CONNECT adservice.google.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:09 2021
-14: "CONNECT ogs.google.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:09 2021
-16: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:09 2021
-16: not in cache
-16: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
-16: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-16: Responding "HTTP/1.1 200 OK"
-16: not cacheable because max_age is 0
-17: "CONNECT platform.twitter.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:10 2021
-18: "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:10 2021
-18: not in cache
-18: Requesting "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from detectportal.firefox.com
-18: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-18: Responding "HTTP/1.1 200 OK"
-18: not cacheable because max_age is 0
-19: "CONNECT www.stanford.edu:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:12 2021
-21: "CONNECT www-media.stanford.edu:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:14 2021
-22: "CONNECT www-media.stanford.edu:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:14 2021
-23: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 06:00:20 2021
-23: not in cache
-23: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
-23: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-23: Responding "HTTP/1.1 200 OK"
-23: not cacheable because max_age is 0
+1: "CONNECT home.firefoxchina.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:14:38 2021
+4: "GET http://man7.org/linux/man-pages/man2/recv.2.html HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:14:40 2021
+4: not in cache
+4: Requesting "GET http://man7.org/linux/man-pages/man2/recv.2.html HTTP/1.1" from man7.org
+4: Received "HTTP/1.1 301 Moved Permanently" from man7.org
+4: Responding "HTTP/1.1 301 Moved Permanently"
+4: cached, expires at Tue Mar  9 23:54:40 2021
+
+5: "CONNECT man7.org:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:14:41 2021
+6: "CONNECT man7.org:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:14:43 2021
+9: "CONNECT www.statcounter.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:14:45 2021
+11: "CONNECT push.services.mozilla.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:15:53 2021
+12: "CONNECT firefox.settings.services.mozilla.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:15:54 2021
+14: "CONNECT firefox-settings-attachments.cdn.mozilla.net:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:15:56 2021
+18: "CONNECT firefox-settings-attachments.cdn.mozilla.net:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:15:56 2021
+19: "CONNECT firefox-settings-attachments.cdn.mozilla.net:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:15:57 2021
+20: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:15:57 2021
+20: not in cache
+20: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+20: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+20: Responding "HTTP/1.1 200 OK"
+20: not cacheable because max_age is 0
+21: "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:15:57 2021
+21: not in cache
+21: Requesting "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from detectportal.firefox.com
+21: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+21: Responding "HTTP/1.1 200 OK"
+21: not cacheable because max_age is 0
+26: "CONNECT firefox-settings-attachments.cdn.mozilla.net:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:16:43 2021

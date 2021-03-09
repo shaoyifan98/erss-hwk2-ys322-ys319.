@@ -94,7 +94,7 @@ class Server {
       //loop to receive requestHead
       while(1) {
         std::cout << "recv request in 98" << std::endl;
-        memset(buffer, 0, sizeof(char));
+        memset(buffer, 0, sizeof(buffer));
         recv_size = recv(otherSockfd, buffer, CHUNK_SIZE, 0);
         if (recv_size < 0) {
           throw myException("Server Recving failed");
@@ -128,7 +128,7 @@ class Server {
           int recv_size = 0;
           //loop to receive requestBody
           while(1) {
-            memset(buffer, 0, sizeof(char));
+            memset(buffer, 0, sizeof(buffer));
             recv_size = recv(otherSockfd, buffer, CHUNK_SIZE, 0);
             if (recv_size <= 0) {
               break;
@@ -141,12 +141,12 @@ class Server {
           }
         }
       } else { // have Content-Length
-        int contentLen = req.contentLen - requestBody.size();  
+        int contentLen = req.contentLen - requestBody.size();
         int totalLen = 0;
         if (contentLen != 0) {
           while(totalLen < contentLen) {
             char buffer[contentLen];
-            memset(buffer, 0, sizeof(char));
+            memset(buffer, 0, sizeof(buffer));
             int recv_size = recv(otherSockfd, buffer, contentLen, 0);
             if (recv_size <= 0) {
               break;
@@ -156,6 +156,7 @@ class Server {
             totalLen += recv_size;
           }
         }
+        return (requestHead + requestBody + "\r\n");
       }
       return (requestHead + requestBody);
     }

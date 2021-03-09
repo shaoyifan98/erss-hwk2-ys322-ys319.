@@ -110,7 +110,7 @@ void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &l
 
       if(validate(req, response, cache.cache[req.getHeader()["URI"]])){
         //can use content in the cache
-        send(clientfd, response.c_str(), response.length(), 0);
+        send(clientfd, response.c_str(), response.size(), 0);
         cout << "cache is used" << endl;
         return;
       } else {
@@ -124,7 +124,7 @@ void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &l
       std::string info = "in cache, valid";
       log.writeInfo(info);
 
-      send(clientfd, response.c_str(), response.length(), 0);
+      send(clientfd, response.c_str(), response.size(), 0);
       cout << "cache is used" << endl;
       return;
     }

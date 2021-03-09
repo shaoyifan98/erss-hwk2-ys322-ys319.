@@ -71,7 +71,7 @@ class Client {
       std::string result = "";
       //loop to receive responseHead
       while(1) {
-        memset(buffer, 0, sizeof(char));
+        memset(buffer, 0, sizeof(buffer));
         recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
         int send_size = send(clientfd, buffer, recv_size, 0);
         if (send_size < 0) {
@@ -91,7 +91,8 @@ class Client {
       // responseHead
       std::string responseHead = result.substr(0, endIndex);
       ResponseHeader resp(responseHead);
-
+      std::cout << "ContentLength: " << to_string(resp.contentLen) << std::endl;
+      std::cout << "Chunked: " << resp.chunked << std::endl;  
       //for status code 1xx, 204 or 304, only response head
       // if (resp.status == 204 || resp.status == 304 || ((resp.status >= 100) && (resp.status < 200))) {
         
@@ -110,7 +111,7 @@ class Client {
           int recv_size = 0;
           //loop to receive requestBody
           while(1) {
-            memset(buffer, 0, sizeof(char));
+            memset(buffer, 0, sizeof(buffer));
             recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
             if (recv_size <= 0) {
               break;
@@ -127,12 +128,14 @@ class Client {
           }
         }
       } else if(resp.contentLen != 0){ // have Content-Length
-        int contentLen = resp.contentLen - responseBody.size();   
+        int contentLen = resp.contentLen - responseBody.size(); 
+        std::cout << "remaining ContentLength: " << to_string(contentLen) << std::endl;  
         int totalLen = 0;
         if (contentLen != 0) {
+          contentLen += 2;
           while (totalLen < contentLen) {
             char buffer[contentLen];
-            memset(buffer, 0, sizeof(char));
+            memset(buffer, 0, sizeof(buffer));
             int recv_size = recv(sockfd, buffer, contentLen, 0);
             if (recv_size <= 0) {
               break;
@@ -146,9 +149,9 @@ class Client {
             totalLen += recv_size;
           }
         }
-         return (responseHead + responseBody);
-      }
         return (responseHead + responseBody);
+      }
+      return (responseHead + responseBody);
     }
 
     std::string clientRecvResp() {
@@ -158,7 +161,7 @@ class Client {
       std::string result = "";
       //loop to receive responseHead
       while(1) {
-        memset(buffer, 0, sizeof(char));
+        memset(buffer, 0, sizeof(buffer));
         recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
         std::string temp(buffer, recv_size);
         result += temp;
@@ -181,7 +184,7 @@ class Client {
           int recv_size = 0;
           //loop to receive requestBody
           while(1) {
-            memset(buffer, 0, sizeof(char));
+            memset(buffer, 0, sizeof(buffer));
             recv_size = recv(sockfd, buffer, CHUNK_SIZE, 0);
             if (recv_size <= 0) {
               break;
@@ -197,9 +200,10 @@ class Client {
         int contentLen = resp.contentLen - responseBody.size();   
         int totalLen = 0;
         if (contentLen != 0) {
+          contentLen += 2;
           while (totalLen < contentLen) {
             char buffer[contentLen];
-            memset(buffer, 0, sizeof(char));
+            memset(buffer, 0, sizeof(buffer));
             int recv_size = recv(sockfd, buffer, contentLen, 0);
             if (recv_size <= 0) {
               break;
@@ -209,9 +213,9 @@ class Client {
             totalLen += recv_size;
           }
         }
-         return (responseHead + responseBody);
-      }
         return (responseHead + responseBody);
+      }
+      return (responseHead + responseBody);
     }
 
 

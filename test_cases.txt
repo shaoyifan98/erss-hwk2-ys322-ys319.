@@ -1,0 +1,57 @@
+Test Environment: FireFox
+
+
+Test Case1: Connect
+Process: visit www.google.com
+------------------------------------------------------------------------------------------------------------------
+2: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 15:26:42 2021
+5: "CONNECT adservice.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 15:26:44 2021
+6: "CONNECT ogs.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 15:26:44 2021
+7: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 15:26:44 2021
+7: not in cache
+7: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+7: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+7: Responding "HTTP/1.1 200 OK"
+7: not cacheable because max_age is 0
+8: "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 15:26:45 2021
+8: not in cache
+8: Requesting "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from detectportal.firefox.com
+8: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+8: Responding "HTTP/1.1 200 OK"
+8: not cacheable because max_age is 0
+------------------------------------------------------------------------------------------------------------------
+
+
+Test Case2: Get chunked resource
+Process: http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
+------------------------------------------------------------------------------------------------------------------
+0: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 15:53:58 2021
+0: not in cache
+0: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+1: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 15:53:59 2021
+0: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+0: Responding "HTTP/1.1 200 OK"
+0: not cacheable because no-store
+------------------------------------------------------------------------------------------------------------------
+
+Test Case3: Get, Post, Cache
+Process: 1.visit http://httpbin.org/forms/post 2.click submit 3.create a new window and visit http://httpbin.org/forms/post again
+------------------------------------------------------------------------------------------------------------------
+0: "GET http://httpbin.org/forms/post HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:05:16 2021
+0: not in cache
+0: Requesting "GET http://httpbin.org/forms/post HTTP/1.1" from httpbin.org
+0: Received "HTTP/1.1 200 OK" from httpbin.org
+0: Responding "HTTP/1.1 200 OK"
+0: cached, expires at Mon Mar  8 08:45:16 2021
+
+9: "POST http://httpbin.org/post HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 15:58:36 2021
+9: Requesting "POST http://httpbin.org/post HTTP/1.1" from httpbin.org
+9: Received "HTTP/1.1 200 OK" from httpbin.org
+9: Responding "HTTP/1.1 200 OK"
+
+8: "GET http://httpbin.org/forms/post HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 15:58:28 2021
+8: in cache, valid
+------------------------------------------------------------------------------------------------------------------
+
+
+
