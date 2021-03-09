@@ -20,6 +20,9 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
 static Cache cache;
 void httpProxy::init() {
   int id = 0;
+  std::ofstream logfile;
+  logfile.open("/var/log/erss/proxy.log");
+  logfile.close();
   signal(SIGPIPE, SIG_IGN);
   while(true) {
     std::string ip = "";
@@ -39,13 +42,7 @@ void handleReq(ClientInfo & clientinfo, Server & server) {
   try{
     LogInfo log(std::to_string(clientinfo.getClientID()));
     std::cout << clientinfo.getClientID() << std::endl;
-    try{
-       request = server.serverRecvReq(clientinfo.getClientfd());
-    }
-    catch(const std::exception& e){
-      std::cerr << e.what() << '\n';
-      return;
-    }
+    request = server.serverRecvReq(clientinfo.getClientfd());
     if (request.find("HTTP") == string::npos) {
       //std::cout << "in38" << std::endl;
        return ;
@@ -78,6 +75,7 @@ void handleReq(ClientInfo & clientinfo, Server & server) {
     }
   } catch(const std::exception& e) {
       std::cerr << e.what() << '\n';
+      return;
     }
   }
   
@@ -227,43 +225,23 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
     FD_SET(proxyfd, &readfds);
     int fdnum = max(clientfd, proxyfd) + 1;
     select(fdnum, &readfds, NULL, NULL, &waitTime);
-    // char data[65536];
-    // int len = 0;
-    // if (FD_ISSET(clientfd, &readfds)){
-    //   len = recv(clientfd, data, sizeof(data), 0);
-    //     if (len <= 0) {
-    //       return;
-    //     }
-    //     else {
-    //       if (send(proxyfd, data, len, 0) <= 0) {
-    //         return;
-    //       }
-    //     }
-    // }else if (FD_ISSET(proxyfd, &readfds)){
-    //   len = recv(proxyfd, data, sizeof(data), 0);
-    //     if (len <= 0) {
-    //       return;
-    //     }
-    //     else {
-    //       if (send(clientfd, data, len, 0) <= 0) {
-    //         return;
-    //       }
-    //     }
-    // }
-    int fdArr[2] = {clientfd, proxyfd};
-    int len;
-    for (int i = 0; i < 2; i++) {
-      char data[65536];
-      if (FD_ISSET(fdArr[i], &readfds)) {
-        len = recv(fdArr[i], data, sizeof(data), 0);
-        if (len <= 0) {
-          return;
-        }
-        else {
-          if (send(fdArr[1 - i], data, len, 0) <= 0) {
-            return;
-          }
-        }
+    char data[65536];
+    int len = 0;
+    if (FD_ISSET(clientfd, &readfds)){
+      len = recv(clientfd, data, sizeof(data), 0);
+      if (len <= 0) {
+        return;
+      }
+      if (send(proxyfd, data, len, 0) <= 0) {
+        return;
+      }
+    } else if (FD_ISSET(proxyfd, &readfds)){
+      len = recv(proxyfd, data, sizeof(data), 0);
+      if (len <= 0) {
+        return;
+      }
+      if (send(clientfd, data, len, 0) <= 0) {
+        return;
       }
     }
   }

@@ -1,7 +1,10 @@
 #include "Cache.h"
 #include <iostream>
+#include <mutex>
 
 void Cache::add(ResponseHeader content){
+    std::mutex writeLock;
+    writeLock.lock();
     if(count == CAPACITY){
         deleteOldRecord();
     }
@@ -9,12 +12,15 @@ void Cache::add(ResponseHeader content){
     if(cache.count(content.uri) == 0){
         cache.insert(pair<string, ResponseHeader>(content.uri, content));
     }
-      
+    writeLock.unlock(); 
 }
 
 
  void Cache::remove(string uri){
+    std::mutex writeLock;
+    writeLock.lock();
     cache.erase(uri);
+    writeLock.unlock(); 
 }
 
 bool Cache::canUseCache(RequestHeader& header, LogInfo & log){

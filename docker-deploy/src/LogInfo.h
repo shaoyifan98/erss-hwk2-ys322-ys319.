@@ -9,15 +9,16 @@
 class LogInfo {
   private:
     std::string id;
+    std::ofstream logfile;
   public:
-    LogInfo(std::string id): id(id) {}
+    LogInfo(std::string id): id(id) {
+      logfile.open("/var/log/erss/proxy.log", ios::out | ios::app);
+    }
 
     // write normal log info
     void writeInfo(std::string logInfo) {
       std::mutex writeLock;
       writeLock.lock();
-      std::ofstream logfile;
-      logfile.open("/var/log/erss/proxy.log", ios::app);
       if (logfile.is_open()){
         logfile << id << ": " << logInfo << std::endl;
       }
@@ -28,11 +29,15 @@ class LogInfo {
     void writeError(std::string errMsg) {
       std::mutex writeLock;
       writeLock.lock();
-      std::ofstream logfile("/var/log/erss/proxy.log");
+      //std::ofstream logfile("/var/log/erss/proxy.log");
       if (logfile.is_open()){
         logfile << "(no-id): " << errMsg << std::endl;
       }
       writeLock.unlock();
+    }
+
+    ~LogInfo() {
+      logfile.close();
     }
 
 };
