@@ -87,7 +87,7 @@ void ResponseHeader::parse(string content){
         contentLength = contentLength.substr(0, endIndex);
         contentLen = atoi(contentLength.c_str());
         chunked = false;
-    } else if ((startIndex = content.find("Transfer-Encoding:")) != std::string::npos) {
+    } else if ((startIndex = content.find("chunked")) != std::string::npos) {
         chunked = true;
         contentLen = 0;
     } else {

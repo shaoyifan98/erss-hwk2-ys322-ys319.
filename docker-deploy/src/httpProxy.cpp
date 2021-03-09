@@ -141,8 +141,13 @@ void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &l
     // writelog : ID: Requesting "REQUEST" from SERVER
     info = "Requesting \"" + req.startLine + "\" from " + req.getHeader()["HOST"];
     log.writeInfo(info);
-
+    //get resource from server and send to the client
     response = proxyAsClient.clientRecvResp(clientfd);
+    //invalid response
+    if(response.find("\r\n\r\n") == string::npos){
+      info = "502 Bad Gateway";
+      log.writeInfo(info);
+    }
     ResponseHeader resp(response);
 
     // writelog : ID: Received "RESPONSE" from SERVER
@@ -154,20 +159,30 @@ void handleGET(int clientfd, std::string request, RequestHeader &req, LogInfo &l
   }
 
   ResponseHeader resp(response);
-  if(!resp.no_store && resp.max_age != 0){
+  if(!resp.no_store && resp.max_age != 0 && !resp.chunked){
     resp.uri = req.getHeader()["URI"];
     cache.add(resp);
     // writelog : ID: cached, expires at EXPIRES
-    std::string info = "cached, expires at " + resp.getExpireTime();
-    log.writeInfo(info);
+    if(resp.no_cache) {
+      // ID: cached, but requires re-validation
+      std::string info = "cached, but requires re-validation";
+      log.writeInfo(info);
+    }else{
+      std::string info = "cached, expires at " + resp.getExpireTime();
+      log.writeInfo(info);
+    }
     cout << "add in to cache, and uri is" << resp.uri << endl;
-  } else if (resp.no_store) {
-    // ID: cached, but requires re-validation
-    std::string info = "cached, but requires re-validation";
-    log.writeInfo(info);
-  } else if (resp.max_age == 0) {
+  }else if (resp.max_age == 0) {
     // ID: not cacheable because REASON
     std::string info = "not cacheable because max_age is 0";
+    log.writeInfo(info);
+  }else if(resp.no_store){
+    //no_store, can not cached
+    std::string info = "not cacheable because no-store";
+    log.writeInfo(info);
+  }else if(resp.chunked){
+    //no_store, can not cached
+    std::string info = "not cacheable because chunked";
     log.writeInfo(info);
   }
 }
@@ -212,6 +227,29 @@ void handleCONNECT(int clientfd, std::string request, RequestHeader &req, LogInf
     FD_SET(proxyfd, &readfds);
     int fdnum = max(clientfd, proxyfd) + 1;
     select(fdnum, &readfds, NULL, NULL, &waitTime);
+    // char data[65536];
+    // int len = 0;
+    // if (FD_ISSET(clientfd, &readfds)){
+    //   len = recv(clientfd, data, sizeof(data), 0);
+    //     if (len <= 0) {
+    //       return;
+    //     }
+    //     else {
+    //       if (send(proxyfd, data, len, 0) <= 0) {
+    //         return;
+    //       }
+    //     }
+    // }else if (FD_ISSET(proxyfd, &readfds)){
+    //   len = recv(proxyfd, data, sizeof(data), 0);
+    //     if (len <= 0) {
+    //       return;
+    //     }
+    //     else {
+    //       if (send(clientfd, data, len, 0) <= 0) {
+    //         return;
+    //       }
+    //     }
+    // }
     int fdArr[2] = {clientfd, proxyfd};
     int len;
     for (int i = 0; i < 2; i++) {

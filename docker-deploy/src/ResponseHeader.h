@@ -26,7 +26,7 @@ class ResponseHeader{
         bool must_revalidate;
         Time time;
 
-        ResponseHeader(string str):rawData(str), status(0), etag(""), date(""), max_age(-1), last_modified(""), expire(""), payload(""), uri(""),
+        ResponseHeader(string str):rawData(str), status(0), etag(""), date(""), max_age(60000), last_modified(""), expire(""), chunked(false), payload(""), uri(""),
         no_cache(false), no_store(false), must_revalidate(false){
           parse(rawData);
         }

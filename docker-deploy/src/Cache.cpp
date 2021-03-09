@@ -5,7 +5,11 @@ void Cache::add(ResponseHeader content){
     if(count == CAPACITY){
         deleteOldRecord();
     }
-    cache.insert(pair<string, ResponseHeader>(content.uri, content));   
+    //ensure no duplicated insertion
+    if(cache.count(content.uri) == 0){
+        cache.insert(pair<string, ResponseHeader>(content.uri, content));
+    }
+      
 }
 
 

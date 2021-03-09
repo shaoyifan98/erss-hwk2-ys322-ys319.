@@ -1,221 +1,233 @@
-0: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:42 2021
-
-1: "CONNECT home.firefoxchina.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:42 2021
-
-2: "CONNECT entry.baidu.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:44 2021
-
-3: "CONNECT static.firefoxchina.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:44 2021
-
-4: "CONNECT www.duba.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:46 2021
-
-5: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:46 2021
-
-5: not in cache
-6: "CONNECT www.2du.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:46 2021
-
-5: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
-5: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-5: Responding "HTTP/1.1 200 OK"
-5: not cacheable because max_age is 0
-7: "CONNECT www.2du.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:46 2021
-
-13: "CONNECT dfzximg02.dftoutiao.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:46 2021
-
-11: "CONNECT dfzximg02.dftoutiao.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:46 2021
-
-8: "CONNECT dfzximg02.dftoutiao.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:46 2021
-
-14: "CONNECT tracking.firefox.com.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:49 2021
-
-15: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:49 2021
-
-16: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:49 2021
-
-17: "CONNECT newtab.firefoxchina.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:49 2021
-
-18: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:51 2021
-
-18: not in cache
-18: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
-18: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-18: Responding "HTTP/1.1 200 OK"
-18: not cacheable because max_age is 0
-19: "CONNECT publish-pic-cpu.baidu.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:51 2021
-
-21: "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:51 2021
-
-21: not in cache
-21: Requesting "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from detectportal.firefox.com
-21: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+0: "CONNECT push.services.mozilla.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:14:53 2021
+2: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:14:58 2021
+3: "CONNECT www.stanford.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:12 2021
+4: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:14 2021
+9: "CONNECT fonts.googleapis.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:14 2021
+8: "CONNECT events.stanford.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:15 2021
+10: "CONNECT www.googletagmanager.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:15 2021
+14: "CONNECT fonts.gstatic.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:15 2021
+15: "CONNECT fonts.gstatic.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:15 2021
+17: "POST http://ocsp.pki.goog/gts1o1core HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:16 2021
+17: Requesting "POST http://ocsp.pki.goog/gts1o1core HTTP/1.1" from ocsp.pki.goog
+17: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+17: Responding "HTTP/1.1 200 OK"
+20: "CONNECT www-media.stanford.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:17 2021
+21: "POST http://ocsp.usertrust.com/ HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:17 2021
+21: Requesting "POST http://ocsp.usertrust.com/ HTTP/1.1" from ocsp.usertrust.com
+21: Received "HTTP/1.1 200 OK" from ocsp.usertrust.com
 21: Responding "HTTP/1.1 200 OK"
-21: not cacheable because max_age is 0
-24: "CONNECT adservice.google.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:53 2021
-
-25: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:55 2021
-
-26: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:55 2021
-
-20: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:56 2021
-
-27: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:56 2021
-
-27: not in cache
-27: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
-28: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:13:59 2021
-
-27: Received "HTTP/1.1 200 OK" from www.httpwatch.com
-27: Responding "HTTP/1.1 200 OK"
-27: cached, but requires re-validation
-30: "GET http://www.rabihyounes.com/ HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:14:00 2021
-
-30: not in cache
-30: Requesting "GET http://www.rabihyounes.com/ HTTP/1.1" from www.rabihyounes.com
-30: Received "HTTP/1.1 200 OK" from www.rabihyounes.com
-30: Responding "HTTP/1.1 200 OK"
-30: cached, expires at Sun Mar  7 08:19:00 2021
-
-32: "CONNECT fonts.googleapis.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:14:01 2021
-
-35: "CONNECT platform.twitter.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:14:06 2021
-
-36: "GET http://httpbin.org/forms/post HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:14:18 2021
-
-36: not in cache
-36: Requesting "GET http://httpbin.org/forms/post HTTP/1.1" from httpbin.org
-36: Received "HTTP/1.1 200 OK" from httpbin.org
-36: Responding "HTTP/1.1 200 OK"
-36: cached, expires at 
-37: "POST http://httpbin.org/post HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:14:22 2021
-
-37: Requesting "POST http://httpbin.org/post HTTP/1.1" from httpbin.org
-37: Received "HTTP/1.1 200 OK" from httpbin.org
-37: Responding "HTTP/1.1 200 OK"
-42: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:14:47 2021
-
-43: "CONNECT syndication.twitter.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:15:26 2021
-
-44: "CONNECT cdn.syndication.twimg.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:15:26 2021
-
-50: "CONNECT pbs.twimg.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:15:27 2021
-
-53: "CONNECT pbs.twimg.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:15:27 2021
-
-54: "GET http://www.rabihyounes.com/scripts/scriptNewest.js HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:15:28 2021
-
-54: not in cache
-54: Requesting "GET http://www.rabihyounes.com/scripts/scriptNewest.js HTTP/1.1" from www.rabihyounes.com
-55: "CONNECT fonts.googleapis.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:15:28 2021
-
-54: Received "HTTP/1.1 200 OK" from www.rabihyounes.com
-54: Responding "HTTP/1.1 200 OK"
-54: cached, expires at Sun Mar  7 14:15:28 2021
-
-58: "CONNECT use.fontawesome.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:15:28 2021
-
-65: "GET http://www.rabihyounes.com/images/Zeus.jpg HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:15:49 2021
-
-65: not in cache
-65: Requesting "GET http://www.rabihyounes.com/images/Zeus.jpg HTTP/1.1" from www.rabihyounes.com
-65: Received "HTTP/1.1 200 OK" from www.rabihyounes.com
+22: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:28 2021
+23: "GET http://www.duke.edu/ HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:34 2021
+23: not in cache
+23: Requesting "GET http://www.duke.edu/ HTTP/1.1" from www.duke.edu
+23: Received "HTTP/1.0 302 Moved Temporarily" from www.duke.edu
+23: Responding "HTTP/1.0 302 Moved Temporarily"
+24: "CONNECT www.duke.eduhttp:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:34 2021
+25: "CONNECT fonts.gstatic.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:51 2021
+27: "CONNECT www.google-analytics.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:15:53 2021
+31: "CONNECT events.stanford.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:00 2021
+32: "POST http://ocsp.usertrust.com/ HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:01 2021
+32: Requesting "POST http://ocsp.usertrust.com/ HTTP/1.1" from ocsp.usertrust.com
+32: Received "HTTP/1.1 200 OK" from ocsp.usertrust.com
+32: Responding "HTTP/1.1 200 OK"
+34: "CONNECT www-media.stanford.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:01 2021
+36: "CONNECT www-media.stanford.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:06 2021
+37: "CONNECT www-media.stanford.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:37 2021
+38: "CONNECT www.duke.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:43 2021
+40: "CONNECT www.duke.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:44 2021
+41: "CONNECT www.duke.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:44 2021
+47: "CONNECT i1.ytimg.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:44 2021
+49: "CONNECT alertbar.oit.duke.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:44 2021
+50: "CONNECT www.duke.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:44 2021
+51: "CONNECT www.duke.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:44 2021
+52: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:45 2021
+52: not in cache
+52: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+52: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+52: Responding "HTTP/1.1 200 OK"
+52: not cacheable because max_age is 0
+53: "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:45 2021
+53: not in cache
+53: Requesting "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from detectportal.firefox.com
+53: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+53: Responding "HTTP/1.1 200 OK"
+53: not cacheable because max_age is 0
+60: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:59 2021
+61: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:16:59 2021
+62: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:00 2021
+63: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:00 2021
+64: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:06 2021
+65: "POST http://ocsp.pki.goog/gts1o1core HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:07 2021
+65: Requesting "POST http://ocsp.pki.goog/gts1o1core HTTP/1.1" from ocsp.pki.goog
+65: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
 65: Responding "HTTP/1.1 200 OK"
-65: cached, expires at Mon Mar  7 08:15:49 2022
+69: "CONNECT adservice.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:08 2021
+70: "CONNECT stanfordhs17.wpengine.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:09 2021
+71: "POST http://status.rapidssl.com/ HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:11 2021
+71: Requesting "POST http://status.rapidssl.com/ HTTP/1.1" from status.rapidssl.com
+71: Received "HTTP/1.1 200 OK" from status.rapidssl.com
+71: Responding "HTTP/1.1 200 OK"
+72: "GET http://www.stanford.edu/wp-content/uploads/2017/06/white-plaza-splash-3x2.jpg HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:12 2021
+72: not in cache
+72: Requesting "GET http://www.stanford.edu/wp-content/uploads/2017/06/white-plaza-splash-3x2.jpg HTTP/1.1" from www.stanford.edu
+72: Received "HTTP/1.1 200 OK" from www.stanford.edu
+72: Responding "HTTP/1.1 200 OK"
+72: cached, expires at Mon Mar  7 16:17:12 2022
 
-67: "GET http://www.rabihyounes.com/images/icon.ico HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:15:56 2021
+73: "CONNECT id.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:18 2021
+76: "POST http://ocsp.pki.goog/gts1o1core HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:19 2021
+76: Requesting "POST http://ocsp.pki.goog/gts1o1core HTTP/1.1" from ocsp.pki.goog
+76: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+76: Responding "HTTP/1.1 200 OK"
+78: "CONNECT ogs.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:20 2021
+79: "CONNECT scholars.duke.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:36 2021
+80: "POST http://ocsp.usertrust.com/ HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:36 2021
+80: Requesting "POST http://ocsp.usertrust.com/ HTTP/1.1" from ocsp.usertrust.com
+80: Received "HTTP/1.1 200 OK" from ocsp.usertrust.com
+80: Responding "HTTP/1.1 200 OK"
+86: "CONNECT scholars.duke.edu:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:17:38 2021
+90: "CONNECT adservice.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:18:03 2021
+92: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:18:04 2021
+93: "POST http://ocsp.pki.goog/gts1o1core HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:18:05 2021
+93: Requesting "POST http://ocsp.pki.goog/gts1o1core HTTP/1.1" from ocsp.pki.goog
+93: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+93: Responding "HTTP/1.1 200 OK"
+96: "CONNECT ogs.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:18:18 2021
+97: "GET http://adhilton.pratt.duke.edu/ece-551 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:18:22 2021
+97: not in cache
+97: Requesting "GET http://adhilton.pratt.duke.edu/ece-551 HTTP/1.1" from adhilton.pratt.duke.edu
+97: Received "HTTP/1.1 404 Not Found" from adhilton.pratt.duke.edu
+97: Responding "HTTP/1.1 404 Not Found"
+97: not cacheable because chunked
+99: "GET http://adhilton.pratt.duke.edu/sites/adhilton.pratt.duke.edu/files/js/js_oRUwiHdyklgZzOfs7lC7Xl4Cql5NDcF_MwcTGYXu1u4.js HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:18:23 2021
+99: not in cache
+99: Requesting "GET http://adhilton.pratt.duke.edu/sites/adhilton.pratt.duke.edu/files/js/js_oRUwiHdyklgZzOfs7lC7Xl4Cql5NDcF_MwcTGYXu1u4.js HTTP/1.1" from adhilton.pratt.duke.edu
+109: "GET http://adhilton.pratt.duke.edu/sites/all/modules/contrib/biblio/biblio.css?qp7r6g HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:18:23 2021
+109: not in cache
+99: Received "HTTP/1.1 200 OK" from adhilton.pratt.duke.edu
+99: Responding "HTTP/1.1 200 OK"
+109: "GET http://adhilton.pratt.duke.edu/sites/adhilton.pratt.duke.edu/files/js/js_zS-CmNFGyegtLYJmqFRpxQvvQrfPIFrOMq_3T3C8sZE.js HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:18:23 2021
+109: not in cache
+99: cached, expires at Mon Mar  8 08:58:23 2021
 
-67: not in cache
-67: Requesting "GET http://www.rabihyounes.com/images/icon.ico HTTP/1.1" from www.rabihyounes.com
-67: Received "HTTP/1.1 200 OK" from www.rabihyounes.com
-67: Responding "HTTP/1.1 200 OK"
-67: cached, expires at Mon Mar  7 08:15:56 2022
+109: Requesting "GET http://adhilton.pratt.duke.edu/sites/adhilton.pratt.duke.edu/files/js/js_zS-CmNFGyegtLYJmqFRpxQvvQrfPIFrOMq_3T3C8sZE.js HTTP/1.1" from adhilton.pratt.duke.edu
+109: Requesting "GET http://adhilton.pratt.duke.edu/sites/all/modules/contrib/biblio/biblio.css?qp7r6g HTTP/1.1" from adhilton.pratt.duke.edu
+109: Received "HTTP/1.1 200 OK" from adhilton.pratt.duke.edu
+109: Responding "HTTP/1.1 200 OK"
+109: cached, expires at Mon Mar  8 08:58:23 2021
 
-68: "CONNECT fonts.gstatic.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:16:26 2021
+109: Received "HTTP/1.1 200 OK" from adhilton.pratt.duke.edu
+109: Responding "HTTP/1.1 200 OK"
+109: cached, expires at Mon Mar  8 08:58:23 2021
 
-69: "CONNECT api2.firefoxchina.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:16:53 2021
+119: "GET http://adhilton.pratt.duke.edu/ece-551 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:18:35 2021
+119: not in cache
+119: Requesting "GET http://adhilton.pratt.duke.edu/ece-551 HTTP/1.1" from adhilton.pratt.duke.edu
+119: Received "HTTP/1.1 404 Not Found" from adhilton.pratt.duke.edu
+119: Responding "HTTP/1.1 404 Not Found"
+119: not cacheable because chunked
+121: "GET http://adhilton.pratt.duke.edu/sites/all/modules/contrib/ctools/css/ctools.css?qp7r6g HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:18:36 2021
+121: not in cache
+121: Requesting "GET http://adhilton.pratt.duke.edu/sites/all/modules/contrib/ctools/css/ctools.css?qp7r6g HTTP/1.1" from adhilton.pratt.duke.edu
+137: "GET http://adhilton.pratt.duke.edu/sites/all/modules/contrib/date/date_api/date.css?qp7r6g HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:18:36 2021
+137: not in cache
+121: Received "HTTP/1.1 200 OK" from adhilton.pratt.duke.edu
+121: Responding "HTTP/1.1 200 OK"
+121: cached, expires at Mon Mar  8 08:58:36 2021
 
-0: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:34 2021
-1: "CONNECT home.firefoxchina.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:34 2021
-2: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:35 2021
-2: not in cache
-2: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
-2: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-2: Responding "HTTP/1.1 200 OK"
-2: not cacheable because max_age is 0
-3: "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:36 2021
+137: Requesting "GET http://adhilton.pratt.duke.edu/sites/all/modules/contrib/date/date_api/date.css?qp7r6g HTTP/1.1" from adhilton.pratt.duke.edu
+137: Received "HTTP/1.1 200 OK" from adhilton.pratt.duke.edu
+137: Responding "HTTP/1.1 200 OK"
+137: cached, expires at Mon Mar  8 08:58:36 2021
+
+0: "CONNECT run.mocky.io:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:20:55 2021
+1: "POST http://r3.o.lencr.org/ HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:20:55 2021
+1: Requesting "POST http://r3.o.lencr.org/ HTTP/1.1" from r3.o.lencr.org
+1: Received "HTTP/1.1 200 OK" from r3.o.lencr.org
+1: Responding "HTTP/1.1 200 OK"
+2: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:20:57 2021
+3: "GET http://run.mocky.io/v3/4df0b238-b030-48fd-aae1-454fd65b13dc HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:21:05 2021
 3: not in cache
-3: Requesting "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from detectportal.firefox.com
-3: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-3: Responding "HTTP/1.1 200 OK"
-3: not cacheable because max_age is 0
-4: "CONNECT home.firefoxchina.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:37 2021
-5: "CONNECT static.firefoxchina.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:38 2021
-6: "CONNECT entry.baidu.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:39 2021
-7: "CONNECT www.duba.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:39 2021
-12: "CONNECT static.huohu123.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:39 2021
-10: "CONNECT static.huohu123.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:39 2021
-13: "CONNECT static.huohu123.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:39 2021
-15: "CONNECT dfzximg02.dftoutiao.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:39 2021
-14: "CONNECT dfzximg02.dftoutiao.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:39 2021
-16: "CONNECT dfzximg02.dftoutiao.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:39 2021
-17: "CONNECT fragment2.firefoxchina.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:39 2021
-18: "CONNECT dfzximg02.dftoutiao.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:39 2021
-19: "CONNECT dfzximg02.dftoutiao.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:40 2021
-20: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:41 2021
-21: "CONNECT static.huohu123.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:41 2021
-22: "CONNECT newtab.firefoxchina.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:42 2021
-23: "CONNECT api2.firefoxchina.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:42 2021
-24: "CONNECT tracking.firefox.com.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:42 2021
-25: "CONNECT publish-pic-cpu.baidu.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:43 2021
-27: "CONNECT newtab.firefoxchina.cn:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:43 2021
-29: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:45 2021
-29: not in cache
-29: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
-29: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-29: Responding "HTTP/1.1 200 OK"
-29: not cacheable because max_age is 0
-31: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:48 2021
-32: "CONNECT www.facebook.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:49 2021
-34: "CONNECT img14.360buyimg.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:49 2021
-36: "CONNECT img14.360buyimg.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:49 2021
-38: "CONNECT img14.360buyimg.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:49 2021
-39: "CONNECT static.xx.fbcdn.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:50 2021
-40: "CONNECT img14.360buyimg.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:51 2021
-41: "CONNECT edge-chat.facebook.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:54 2021
-43: "CONNECT scontent-iad3-1.xx.fbcdn.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:55 2021
-44: "CONNECT safebrowsing.googleapis.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:55 2021
-45: "CONNECT scontent-iad3-1.xx.fbcdn.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:55 2021
-46: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:56 2021
-46: not in cache
-46: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
-46: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+3: Requesting "GET http://run.mocky.io/v3/4df0b238-b030-48fd-aae1-454fd65b13dc HTTP/1.1" from run.mocky.io
+4: "CONNECT push.services.mozilla.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:21:07 2021
+5: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:21:16 2021
+6: "CONNECT run.mocky.io:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:21:21 2021
+7: "GET http://www.rabihyounes.com/ HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:21:40 2021
+7: not in cache
+7: Requesting "GET http://www.rabihyounes.com/ HTTP/1.1" from www.rabihyounes.com
+7: Received "HTTP/1.1 200 OK" from www.rabihyounes.com
+7: Responding "HTTP/1.1 200 OK"
+7: cached, expires at Sun Mar  7 16:26:40 2021
+
+11: "CONNECT www.google-analytics.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:21:41 2021
+13: "GET http://www.mocky.io/v2/5e5892de2f00006d0b961fdc HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:22:25 2021
+13: not in cache
+13: Requesting "GET http://www.mocky.io/v2/5e5892de2f00006d0b961fdc HTTP/1.1" from www.mocky.io
+14: "CONNECT platform.twitter.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:22:26 2021
+16: "CONNECT syndication.twitter.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:22:28 2021
+17: "GET http://www.mocky.io/v2/5e5892de2f00006d0b961fdc HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:22:31 2021
+17: not in cache
+17: Requesting "GET http://www.mocky.io/v2/5e5892de2f00006d0b961fdc HTTP/1.1" from www.mocky.io
+18: "GET http://run.mocky.io/v3/aae24fe8-4bd6-4597-b011-a0d7fda6cc23 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:26:10 2021
+18: not in cache
+18: Requesting "GET http://run.mocky.io/v3/aae24fe8-4bd6-4597-b011-a0d7fda6cc23 HTTP/1.1" from run.mocky.io
+19: "GET http://run.mocky.io/v3/aae24fe8-4bd6-4597-b011-a0d7fda6cc23 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:26:26 2021
+19: not in cache
+19: Requesting "GET http://run.mocky.io/v3/aae24fe8-4bd6-4597-b011-a0d7fda6cc23 HTTP/1.1" from run.mocky.io
+20: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:31:22 2021
+21: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:31:54 2021
+22: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:31:56 2021
+23: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:31:57 2021
+24: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:31:57 2021
+25: "CONNECT www.amazon.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:32:05 2021
+27: "CONNECT images-na.ssl-images-amazon.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:32:06 2021
+37: "GET http://www.rabihyounes.com/ HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:32:21 2021
+37: Óþÿ\
+37: not in cache
+37: Requesting "GET http://www.rabihyounes.com/ HTTP/1.1" from www.rabihyounes.com
+39: "CONNECT www.google-analytics.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:32:22 2021
+40: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:32:39 2021
+42: "CONNECT www.bing.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:32:42 2021
+43: "CONNECT login.microsoftonline.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:32:45 2021
+44: "CONNECT login.live.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:32:45 2021
+45: "CONNECT www2.bing.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:32:45 2021
+46: "POST http://ocsp.digicert.com/ HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:32:45 2021
+46: Requesting "POST http://ocsp.digicert.com/ HTTP/1.1" from ocsp.digicert.com
+46: Received "HTTP/1.1 200 OK" from ocsp.digicert.com
 46: Responding "HTTP/1.1 200 OK"
-46: not cacheable because max_age is 0
-47: "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:57 2021
-47: not in cache
-47: Requesting "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from detectportal.firefox.com
-47: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+47: "POST http://ocsp.digicert.com/ HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:32:46 2021
+47: Requesting "POST http://ocsp.digicert.com/ HTTP/1.1" from ocsp.digicert.com
+47: Received "HTTP/1.1 200 OK" from ocsp.digicert.com
 47: Responding "HTTP/1.1 200 OK"
-47: not cacheable because max_age is 0
-48: "CONNECT scontent.xx.fbcdn.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:23:57 2021
-49: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:04 2021
-50: "CONNECT video-iad3-1.xx.fbcdn.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:05 2021
-54: "CONNECT video-iad3-1.xx.fbcdn.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:05 2021
-55: "CONNECT video-iad3-1.xx.fbcdn.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:05 2021
-56: "CONNECT video-iad3-1.xx.fbcdn.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:05 2021
-61: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:07 2021
-62: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:11 2021
-62: not in cache
-62: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
-62: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-62: Responding "HTTP/1.1 200 OK"
-62: not cacheable because max_age is 0
-63: "CONNECT hm.baidu.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:13 2021
-65: "CONNECT publish-pic-cpu.baidu.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:14 2021
-64: "CONNECT hm.baidu.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:16 2021
-66: "CONNECT edge-chat.facebook.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:17 2021
-69: "CONNECT edge-chat.facebook.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:18 2021
-70: "CONNECT external-iad3-1.xx.fbcdn.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:19 2021
-78: "CONNECT www.2du.net:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:23 2021
-82: "CONNECT publish-pic-cpu.baidu.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:23 2021
-88: "CONNECT static.huohu123.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:23 2021
-90: "CONNECT img1.wywyx.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:23 2021
-95: "CONNECT img.alicdn.com:443 HTTP/1.1" from 10.200.64.27 @ Sun Mar  7 08:24:26 2021
+48: "CONNECT safebrowsing.googleapis.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:32:52 2021
+52: "CONNECT th.bing.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:33:25 2021
+54: "CONNECT th.bing.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:33:25 2021
+56: "CONNECT th.bing.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:33:26 2021
+57: "CONNECT testfamilysafety.bing.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:33:30 2021
+59: "CONNECT t.ssl.ak.dynamic.tiles.virtualearth.net:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:33:30 2021
+63: "CONNECT t.ssl.ak.dynamic.tiles.virtualearth.net:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:33:30 2021
+64: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:33:31 2021
+64: not in cache
+64: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+64: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+64: Responding "HTTP/1.1 200 OK"
+64: not cacheable because max_age is 0
+66: "CONNECT dev.virtualearth.net:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:33:31 2021
+67: "CONNECT safebrowsing.googleapis.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:33:31 2021
+68: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:33:44 2021
+69: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:33:44 2021
+70: "CONNECT www.baidu.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:33:45 2021
+71: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:34:25 2021
+72: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:34:26 2021
+80: "CONNECT adservice.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:34:47 2021
+81: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:34:48 2021
+82: "CONNECT designer.mocky.io:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:34:51 2021
+83: "POST http://r3.o.lencr.org/ HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:34:52 2021
+83: Requesting "POST http://r3.o.lencr.org/ HTTP/1.1" from r3.o.lencr.org
+83: Received "HTTP/1.1 200 OK" from r3.o.lencr.org
+83: Responding "HTTP/1.1 200 OK"
+89: "CONNECT stackpath.bootstrapcdn.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:34:53 2021
+91: "CONNECT designer.mocky.io:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:34:53 2021
+93: "CONNECT www.playstation.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:37:03 2021
+94: "CONNECT designer.mocky.io:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:37:09 2021
+95: "CONNECT www.bing.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:37:14 2021
