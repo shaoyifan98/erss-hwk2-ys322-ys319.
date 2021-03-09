@@ -37,7 +37,7 @@ void httpProxy::init() {
 }
 
 void handleReq(ClientInfo & clientinfo, Server & server) {
- // while(true){
+  while(true) {
   std::string request;
   try{
     LogInfo log(std::to_string(clientinfo.getClientID()));
@@ -74,10 +74,11 @@ void handleReq(ClientInfo & clientinfo, Server & server) {
       return;
     }
   } catch(const std::exception& e) {
-      std::cerr << e.what() << '\n';
-      return;
-    }
+    std::cerr << e.what() << '\n';
+    return;
   }
+  }
+}
   
 bool validate(RequestHeader &req, string response,  ResponseHeader& resHeader){
   Client proxyAsClient(req.getHeader()["HOST"], req.getHeader()["PORT"]);

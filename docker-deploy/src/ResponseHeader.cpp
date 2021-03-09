@@ -104,11 +104,13 @@ string ResponseHeader::getExpireTime(){
         time_t exp_time = mktime(&temp) + max_age;
             //exp_time += res.max_age;
         struct tm * exp_time_tm = gmtime(&exp_time);
-        //string exp_date(asctime(exp_time_tm));
-        return asctime(exp_time_tm);
+        string exp_date(asctime(exp_time_tm));
+        exp_date.pop_back();
+        return exp_date;
     }
 
     if(expire != ""){
+        expire.pop_back();
         return expire;
     }
     return "";

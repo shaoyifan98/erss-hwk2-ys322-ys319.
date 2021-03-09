@@ -132,6 +132,20 @@ class Client {
         std::cout << "remaining ContentLength: " << to_string(contentLen) << std::endl;  
         int totalLen = 0;
         if (contentLen != 0) {
+          // while(true) {
+          //   char buffer[65536];
+          //   memset(buffer, 0, sizeof(buffer));
+          //   int recv_size = recv(sockfd, buffer, contentLen, 0);
+          //   if (recv_size <= 0) {
+          //     break;
+          //   }
+          //   int send_size = send(clientfd, buffer, recv_size, 0);
+          //   if (send_size < 0) {
+          //     throw myException("Server Sending failed");
+          //   }
+          //   std::string temp(buffer, recv_size);
+          //   responseBody += temp;
+          // }
           contentLen += 2;
           while (totalLen < contentLen) {
             char buffer[contentLen];
@@ -200,6 +214,16 @@ class Client {
         int contentLen = resp.contentLen - responseBody.size();   
         int totalLen = 0;
         if (contentLen != 0) {
+          // while(true) {
+          //   char buffer[65536];
+          //   memset(buffer, 0, sizeof(buffer));
+          //   int recv_size = recv(sockfd, buffer, contentLen, 0);
+          //   if (recv_size <= 0) {
+          //     break;
+          //   }
+          //   std::string temp(buffer, recv_size);
+          //   responseBody += temp;
+          // }
           contentLen += 2;
           while (totalLen < contentLen) {
             char buffer[contentLen];

@@ -1,7 +1,7 @@
 Test Environment: FireFox
 
 
-Test Case1: Connect
+Test Case1: Connect & Not Cacheable(max_age = 0)
 Process: visit www.google.com
 ------------------------------------------------------------------------------------------------------------------
 2: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 15:26:42 2021
@@ -22,7 +22,7 @@ Process: visit www.google.com
 ------------------------------------------------------------------------------------------------------------------
 
 
-Test Case2: Get chunked resource
+Test Case2: Get chunked resource & Not Cacheable(no-store)
 Process: http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
 ------------------------------------------------------------------------------------------------------------------
 0: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 15:53:58 2021
@@ -34,7 +34,7 @@ Process: http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
 0: not cacheable because no-store
 ------------------------------------------------------------------------------------------------------------------
 
-Test Case3: Get, Post, Cache
+Test Case3: Get & Post
 Process: 1.visit http://httpbin.org/forms/post 2.click submit 3.create a new window and visit http://httpbin.org/forms/post again
 ------------------------------------------------------------------------------------------------------------------
 0: "GET http://httpbin.org/forms/post HTTP/1.1" from 10.200.68.124 @ Sun Mar  7 16:05:16 2021
@@ -53,5 +53,41 @@ Process: 1.visit http://httpbin.org/forms/post 2.click submit 3.create a new win
 8: in cache, valid
 ------------------------------------------------------------------------------------------------------------------
 
+Test Case4: Use Cache
+Process: 1.visit http://www.rabihyounes.com/ 2.visit http://www.rabihyounes.com/ again
+------------------------------------------------------------------------------------------------------------------
+201: "GET http://www.rabihyounes.com/ HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 08:36:12 2021
+201: not in cache
+201: Requesting "GET http://www.rabihyounes.com/ HTTP/1.1" from www.rabihyounes.com
+204: "GET http://www.rabihyounes.com/scripts/scriptNewest.js HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 08:36:12 2021
+204: not in cache
+204: Requesting "GET http://www.rabihyounes.com/scripts/scriptNewest.js HTTP/1.1" from www.rabihyounes.com
+204: Received "HTTP/1.1 200 OK" from www.rabihyounes.com
+204: Responding "HTTP/1.1 200 OK"
+204: cached, expires at Tue Mar  9 14:36:12 2021
 
+204: "GET http://www.rabihyounes.com/images/me.jpg HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 08:36:15 2021
+204: not in cache
+204: Requesting "GET http://www.rabihyounes.com/images/me.jpg HTTP/1.1" from www.rabihyounes.com
+201: Received "HTTP/1.1 200 OK" from www.rabihyounes.com
+201: Responding "HTTP/1.1 200 OK"
+201: cached, expires at Tue Mar  9 08:41:12 2021
+
+205: "GET http://www.rabihyounes.com/css/cssNewest.css HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 08:36:17 2021
+205: not in cache
+205: Requesting "GET http://www.rabihyounes.com/css/cssNewest.css HTTP/1.1" from www.rabihyounes.com
+205: Received "HTTP/1.1 200 OK" from www.rabihyounes.com
+205: Responding "HTTP/1.1 200 OK"
+205: cached, expires at Thu Apr  8 08:36:17 2021
+
+204: Received "HTTP/1.1 200 OK" from www.rabihyounes.com
+204: Responding "HTTP/1.1 200 OK"
+204: cached, expires at Wed Mar  9 08:36:15 2022
+
+251: "GET http://www.rabihyounes.com/ HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 08:39:22 2021
+251: in cache, valid
+268: "GET http://www.rabihyounes.com/images/me.jpg HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 08:41:09 2021
+268: in cache, valid
+276: "GET http://www.rabihyounes.com/scripts/analytics.js HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 08:41:11 2021
+276: in cache, valid
 

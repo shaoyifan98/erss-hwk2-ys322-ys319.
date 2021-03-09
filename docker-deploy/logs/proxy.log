@@ -1,86 +1,155 @@
-0: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:11 2021
-1: "CONNECT home.firefoxchina.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:11 2021
-3: "CONNECT entry.baidu.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:12 2021
-2: "CONNECT static.firefoxchina.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:13 2021
-5: "CONNECT www.duba.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:13 2021
-7: "CONNECT www.2du.net:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:13 2021
-8: "CONNECT safebrowsing.googleapis.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:14 2021
-9: "CONNECT fragment2.firefoxchina.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:14 2021
-10: "CONNECT api2.firefoxchina.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:15 2021
-11: "CONNECT static.firefoxchina.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:15 2021
-13: "CONNECT images.9pk.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:16 2021
-15: "CONNECT images.9pk.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:16 2021
-17: "CONNECT images.9pk.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:16 2021
-18: "CONNECT static.huohu123.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:16 2021
-20: "CONNECT img1.wywyx.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:16 2021
-22: "CONNECT img1.wywyx.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:16 2021
-24: "CONNECT img14.360buyimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:16 2021
-26: "CONNECT img14.360buyimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:16 2021
-29: "CONNECT img1.wywyx.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-28: "CONNECT img1.wywyx.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-30: "CONNECT img14.360buyimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-31: "CONNECT publish-pic-cpu.baidu.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-32: "CONNECT nspt.bdstatic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-33: "CONNECT img1.wywyx.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-34: "CONNECT img14.360buyimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-35: "CONNECT static.huohu123.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-36: "CONNECT img1.wywyx.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-37: "CONNECT img1.wywyx.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-38: "CONNECT img1.wywyx.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-40: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-40: not in cache
-42: "CONNECT im5.tongbu.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-40: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
-40: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-40: Responding "HTTP/1.1 200 OK"
-40: not cacheable because max_age is 0
-43: "CONNECT img1.wywyx.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-45: "CONNECT img1.wywyx.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:17 2021
-46: "CONNECT img14.360buyimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:18 2021
-48: "CONNECT img.alicdn.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:18 2021
-50: "CONNECT img.alicdn.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:18 2021
-51: "CONNECT img.alicdn.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:18 2021
-52: "CONNECT img.alicdn.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:18 2021
-53: "CONNECT nspt.bdstatic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:19 2021
-55: "CONNECT www.wywyx.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:21 2021
-58: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:22 2021
-58: not in cache
-58: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
-58: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-58: Responding "HTTP/1.1 200 OK"
-58: not cacheable because max_age is 0
-59: "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:23 2021
-59: not in cache
-59: Requesting "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from detectportal.firefox.com
-59: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-59: Responding "HTTP/1.1 200 OK"
-59: not cacheable because max_age is 0
-60: "CONNECT newtab.firefoxchina.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:23 2021
-61: "CONNECT www.larksuite.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:23 2021
-62: "CONNECT tracking.firefox.com.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:24 2021
-65: "CONNECT p16-hera-va.ibyteimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:25 2021
-69: "CONNECT s16.byteoversea.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:25 2021
-70: "CONNECT sf16-muse-va.ibytedtos.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:26 2021
-75: "CONNECT sf16-muse-va.ibytedtos.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:26 2021
-76: "CONNECT www.googletagmanager.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:26 2021
-78: "CONNECT static.zdassets.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:26 2021
-79: "CONNECT maliva-mcs.byteoversea.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:26 2021
-80: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:46:32 2021
-80: not in cache
-80: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
-80: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
-80: Responding "HTTP/1.1 200 OK"
-80: not cacheable because max_age is 0
-81: "CONNECT designer.mocky.io:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:47:05 2021
-82: "CONNECT publish-pic-cpu.baidu.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:47:06 2021
-84: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:47:09 2021
-85: "GET http://www.rabihyounes.com/ HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:47:09 2021
-85: not in cache
-85: Requesting "GET http://www.rabihyounes.com/ HTTP/1.1" from www.rabihyounes.com
-86: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:47:10 2021
-88: "CONNECT use.fontawesome.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:47:10 2021
-89: "CONNECT www.notion.so:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:47:16 2021
-90: "CONNECT platform.twitter.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:47:16 2021
-91: "CONNECT push.services.mozilla.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:47:45 2021
-92: "CONNECT firefox.settings.services.mozilla.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:47:47 2021
-98: "CONNECT firefox-settings-attachments.cdn.mozilla.net:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 07:47:49 2021
+0: "GET http://www.rabihyounes.com/ HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:33:27 2021
+0: not in cache
+0: Requesting "GET http://www.rabihyounes.com/ HTTP/1.1" from www.rabihyounes.com
+0: Received "HTTP/1.1 200 OK" from www.rabihyounes.com
+0: Responding "HTTP/1.1 200 OK"
+0: cached, expires at Tue Mar  9 09:38:27 2021
+0: "GET http://www.rabihyounes.com/images/me.jpg HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:33:27 2021
+0: not in cache
+0: Requesting "GET http://www.rabihyounes.com/images/me.jpg HTTP/1.1" from www.rabihyounes.com
+0: Received "HTTP/1.1 200 OK" from www.rabihyounes.com
+0: Responding "HTTP/1.1 200 OK"
+0: cached, expires at Wed Mar  9 09:33:27 2022
+7: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:33:43 2021
+7: not in cache
+7: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+7: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+7: Responding "HTTP/1.1 200 OK"
+7: not cacheable because no-store
+8: "CONNECT www.larksuite.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:04 2021
+11: "CONNECT p19-hera-va.ibyteimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:06 2021
+13: "CONNECT p16-hera-va.ibyteimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:06 2021
+17: "CONNECT p16-hera-va.ibyteimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:06 2021
+19: "CONNECT sf16-muse-va.ibytedtos.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:06 2021
+20: "CONNECT mon-va.byteoversea.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:06 2021
+23: "CONNECT sf16-muse-va.ibytedtos.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:07 2021
+25: "CONNECT www.googletagmanager.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:07 2021
+23: "CONNECT static.zdassets.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:07 2021
+26: "CONNECT img04.en25.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:07 2021
+31: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:12 2021
+31: not in cache
+31: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+31: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+31: Responding "HTTP/1.1 200 OK"
+31: not cacheable because max_age is 0
+32: "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:12 2021
+32: not in cache
+32: Requesting "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from detectportal.firefox.com
+32: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+32: Responding "HTTP/1.1 200 OK"
+32: not cacheable because max_age is 0
+33: "CONNECT p16-hera-va.ibyteimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:29 2021
+34: "CONNECT p19-hera-va.ibyteimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:29 2021
+31: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:29 2021
+31: not in cache
+31: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+35: "CONNECT p19-hera-va.ibyteimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:29 2021
+37: "CONNECT mon-va.byteoversea.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:31 2021
+38: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:35 2021
+38: not in cache
+38: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+38: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+38: Responding "HTTP/1.1 200 OK"
+38: not cacheable because max_age is 0
+32: "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:35 2021
+32: not in cache
+32: Requesting "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from detectportal.firefox.com
+32: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+32: Responding "HTTP/1.1 200 OK"
+32: not cacheable because max_age is 0
+39: "CONNECT www.iqiyi.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:38 2021
+40: "CONNECT www.iqiyi.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:39 2021
+41: "CONNECT hm.baidu.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:41 2021
+44: "CONNECT stc.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:42 2021
+45: "CONNECT stc.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:42 2021
+46: "CONNECT www.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:42 2021
+54: "CONNECT pic7.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:42 2021
+50: "CONNECT pic2.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:42 2021
+56: "CONNECT pic0.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:42 2021
+59: "CONNECT pic5.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:42 2021
+56: "CONNECT pic3.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:42 2021
+66: "CONNECT pic0.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:42 2021
+62: "CONNECT pic5.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:42 2021
+82: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:43 2021
+82: not in cache
+82: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+82: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+82: Responding "HTTP/1.1 200 OK"
+82: not cacheable because max_age is 0
+85: "CONNECT stc.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:43 2021
+88: "CONNECT stc.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:43 2021
+82: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:43 2021
+82: not in cache
+82: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+82: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+82: Responding "HTTP/1.1 200 OK"
+82: not cacheable because max_age is 0
+92: "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:43 2021
+92: not in cache
+92: Requesting "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from detectportal.firefox.com
+92: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+92: Responding "HTTP/1.1 200 OK"
+92: not cacheable because max_age is 0
+91: "CONNECT stc.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:43 2021
+93: "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:48 2021
+93: not in cache
+93: Requesting "GET http://detectportal.firefox.com/success.txt HTTP/1.1" from detectportal.firefox.com
+93: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+93: Responding "HTTP/1.1 200 OK"
+93: not cacheable because max_age is 0
+94: "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:49 2021
+94: not in cache
+94: Requesting "GET http://detectportal.firefox.com/success.txt?ipv4 HTTP/1.1" from detectportal.firefox.com
+94: Received "HTTP/1.1 200 OK" from detectportal.firefox.com
+94: Responding "HTTP/1.1 200 OK"
+94: not cacheable because max_age is 0
+96: "CONNECT www.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:54 2021
+101: "CONNECT www.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:34:54 2021
+102: "CONNECT tracking.firefox.com.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:05 2021
+103: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:05 2021
+104: "CONNECT newtab.firefoxchina.cn:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:06 2021
+7: "GET http://httpbin.org/forms/post HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:06 2021
+7: not in cache
+7: Requesting "GET http://httpbin.org/forms/post HTTP/1.1" from httpbin.org
+106: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:06 2021
+109: "GET http://httpbin.org/forms/post HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:09 2021
+109: not in cache
+109: Requesting "GET http://httpbin.org/forms/post HTTP/1.1" from httpbin.org
+109: Received "HTTP/1.1 200 OK" from httpbin.org
+109: Responding "HTTP/1.1 200 OK"
+109: cached, expires at Wed Mar 10 02:15:09 2021
+109: "GET http://httpbin.org/favicon.ico HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:09 2021
+109: not in cache
+109: Requesting "GET http://httpbin.org/favicon.ico HTTP/1.1" from httpbin.org
+109: Received "HTTP/1.1 404 NOT FOUND" from httpbin.org
+109: Responding "HTTP/1.1 404 NOT FOUND"
+109: cached, expires at Wed Mar 10 02:15:10 2021
+110: "POST http://httpbin.org/post HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:12 2021
+110: Requesting "POST http://httpbin.org/post HTTP/1.1" from httpbin.org
+113: "CONNECT stc.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:13 2021
+117: "CONNECT pic2.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:13 2021
+118: "CONNECT stc.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:14 2021
+119: "CONNECT pic2.iqiyipic.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:24 2021
+120: "CONNECT www.google.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:40 2021
+128: "CONNECT www.googleadservices.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:35:48 2021
+7: Received "HTTP/1.1 200 OK" from httpbin.org
+7: Responding "HTTP/1.1 200 OK"
+7: cached, expires at Wed Mar 10 02:15:06 2021
+110: Received "HTTP/1.1 200 OK" from httpbin.org
+110: Responding "HTTP/1.1 200 OK"
+130: "CONNECT www.googleadservices.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:36:30 2021
+131: "CONNECT www.whatwilltheylearn.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:36:31 2021
+135: "CONNECT fonts.googleapis.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:36:32 2021
+141: "CONNECT cdnjs.cloudflare.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:36:32 2021
+142: "GET http://www.rabihyounes.com/ HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:36:44 2021
+142: in cache, valid
+145: "CONNECT cdn.syndication.twimg.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:36:50 2021
+147: "CONNECT www.amcharts.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:37:05 2021
+148: "GET http://www.whatwilltheylearn.com/content/images/wwtl_logo_no_tag.png HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:37:05 2021
+148: not in cache
+148: Requesting "GET http://www.whatwilltheylearn.com/content/images/wwtl_logo_no_tag.png HTTP/1.1" from www.whatwilltheylearn.com
+148: Received "HTTP/1.1 302 Redirect" from www.whatwilltheylearn.com
+148: Responding "HTTP/1.1 302 Redirect"
+148: cached, expires at Wed Mar 10 02:17:05 2021
+149: "CONNECT www.whatwilltheylearn.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:37:06 2021
+150: "CONNECT cdnjs.cloudflare.com:443 HTTP/1.1" from 10.200.70.31 @ Tue Mar  9 09:37:09 2021
