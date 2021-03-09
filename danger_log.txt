@@ -29,4 +29,8 @@ Solved: We check if it includes "\r\n\r\n", if not, we return a 502 Bad Gateway 
 What if there are too many threads and they affect the efficiency?
 To be solved: We could use thread pool in the future.
 
+2021.3.9
+When a response from a website is not perfect, and it is cached, then user has no chance to request a new one.
+To be solved: Need a strategy to juedge whether the response from the server is perfect.
+
 
